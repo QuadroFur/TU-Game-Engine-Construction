@@ -10,8 +10,6 @@ public:
     sf::Vector2f Position;
     sf::Vector2f Size;
 
-    sf::Texture Texture;
-
     virtual bool BeginOverlap(Object Obj) = 0;
     virtual bool EndOverlap(Object Obj) = 0;
 

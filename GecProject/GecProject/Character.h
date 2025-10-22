@@ -21,8 +21,6 @@ public:
         Right
     };
 
-    sf::Sprite* Character2D = nullptr;
-
     States CharState = Idle;
 
     sf::Texture IdleTexture;

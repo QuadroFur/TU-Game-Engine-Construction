@@ -1,0 +1,29 @@
+Cassius Lockwood
+Milestone 1 - 07/10/25
+--------------------------------
+
+New Functionality
+-----------------
+
+Movement via WASD,
+Animations and tile sets
+
+Code Additions
+--------------
+
+Object base class,
+Actor class for anything requiring a position and size,
+Character class for movement handling based on directions, character states such as idle and walking.
+Player class for input handling via the keyboard.
+
+Tests
+-----
+
+Running the game to test idle animations,
+Moving around to test switching between animation sets.
+
+Notes
+-----
+
+The Actor class currently has the rendering, but also renders as a rectangle, whereas the character renders as a sprite, so temporary rendering has been added to main, which needs to be moved.
+Better handling of animations, to allow for numerous sets of animations to be used, as well as if the set is horizontal or vertical, using math to work out how many tiles there are.

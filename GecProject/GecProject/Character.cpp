@@ -1,14 +1,14 @@
 #include "Character.h"
 
 void Character::UpdateCharState() {
-	if (CharState == Idle) {
+	/*if (CharState == Idle) {
 		Texture = IdleTexture;
 		TextureFrame = 0;
 	}
 	else if (CharState == Walking) {
 		Texture = WalkingTexture;
 		TextureFrame = 0;
-	}
+	}*/
 }
 void Character::MoveCharacter() {
 	if (Direction == Directions::Forward) {

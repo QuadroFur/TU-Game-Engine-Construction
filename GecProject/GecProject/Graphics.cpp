@@ -34,3 +34,38 @@ bool Graphics::AddAnimationSet(const std::string& SetName, const std::string& Ch
 	}
 	Character2DMap[CharName]->AddAnimationSet(SetName, SetData, TextureMap[SetData.TextureName]);
 }
+
+void Graphics::Render(const std::string& Char2DName, sf::Vector2f Position, sf::Vector2f Scale, const std::string AnimSetName, int FrameNum)
+{
+	if (Character2DMap.find(Char2DName) != Character2DMap.end() && Character2DMap[Char2DName]->AnimSetData.find(AnimSetName) != Character2DMap[Char2DName]->AnimSetData.end())
+	{
+		std::cerr << "No Character2D or Animation Set found when rendering! >L43 >Graphics.cpp";
+		return;
+	}
+	Character2D& Char = *Character2DMap[Char2DName]; //Do I call delete on this?
+	Char.Sprite->setTexture(*Char.AnimSetData[AnimSetName].Texture);
+	Char.Sprite->setPosition(Position);
+	Char.Sprite->setScale(Scale);
+
+	//Top-Left : Size
+	if (Char.AnimSetData[AnimSetName].SetData.Orentation == false)
+	{
+		//Calculate Frame Size (width), by size of texture / number of frames
+		int FrameSizeX = Char.AnimSetData[AnimSetName].Texture->getSize().x / Char.AnimSetData[AnimSetName].SetData.NumFrames;
+		int FrameSizeY = Char.AnimSetData[AnimSetName].Texture->getSize().y;
+		int TopCorner = FrameSizeX * FrameNum; //Top corner is size of 1 frame multiplied by the frame number.
+		Char.Sprite->setTextureRect(sf::IntRect({ TopCorner, 0 }, { FrameSizeX, FrameSizeY }));
+	}
+	//When FrameSizeY value is moved into the IntRect, an error occurs due to the types being different.
+	//Seems to be due to tge IntRect taking an int Vector2i, but the getSize supplying a unsigned int Vector2u.
+	//C++ does not seem to be able to convert the getSize to a standard int (because it doesn't know the type?).
+	//	Works fine when in a dedicated variable though.
+}
+void Graphics::Draw(sf::RenderWindow& Window)
+{
+	for (auto& i : Character2DMap)
+	{
+		if (i.second->Sprite != nullptr)
+			Window.draw(*i.second->Sprite);
+	}
+}

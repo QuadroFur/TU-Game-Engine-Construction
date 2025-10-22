@@ -4,6 +4,6 @@ struct AnimationSetData
 {
 	std::string TextureName;
 	int NumFrames{ 0 };
-	bool Orentation;
+	bool Orentation{ false };
 	bool Looped{ true };
 };

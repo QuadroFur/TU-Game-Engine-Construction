@@ -5,21 +5,8 @@
 
 #include "ExternalHeaders.h"
 #include "RedirectCout.h"
-
-#include "Object.h"
-#include "Player.h"
-
-#include <iostream>
-#include <SFML/Graphics.hpp>
-
-float XPosition;
-float YPosition;
-
-float RValue;
-float GValue;
-float BValue;
-
-bool AnimState;
+#include "Graphics.h"
+#include <filesystem> //REMOVE THIS
 
 void DefineGUI();
 
@@ -43,29 +30,28 @@ int main()
     if (!ImGui::SFML::Init(window))
         return -1;
 
-    // Create a simple shape to draw
-    
-
-    //New Zombie Handling
-
-    Player NewPlayer;
-    if (!NewPlayer.IdleTexture.loadFromFile("Data/Textures/MaleZombie/idle_combined.png"))
-    {
-        return -1;
-    }
-    if (!NewPlayer.WalkingTexture.loadFromFile("Data/Textures/MaleZombie/walk_combined.png"))
-    {
-        return -1;
-    }
-    NewPlayer.Size = sf::Vector2f(432 / 20, 521 / 20);
-    NewPlayer.Construct2D(14);
-    NewPlayer.UpdateCharState();
-
-    //Old Zombie Handling
-
     // Clock required by ImGui
     sf::Clock uiDeltaClock;
   
+    //Graphics setup
+    Graphics* MainGraphics = new Graphics;
+
+    sf::Texture Tex;
+    std::filesystem::path Path = "/Data/Textures/MaleZombie/Attack (1).png"; //REMOVE THIS
+    if (!Tex.loadFromFile(Path))
+        return 3;
+
+    if (!MainGraphics->LoadTexture("/Data/Textures/MaleZombie/idle_combined.png", "ZombieIdle"))
+        return 1;
+    if (!MainGraphics->LoadTexture("/Data/Textures/MaleZombie/walk_combined.png", "ZombieWalk"))
+        return 2;
+
+    MainGraphics->CreateChar2D("Zombie");
+    MainGraphics->AddAnimationSet("Idle", "Zombie", AnimationSetData{ "ZombieIdle", 15, false, true });
+    MainGraphics->AddAnimationSet("Walk", "Zombie", AnimationSetData{ "ZombieWalk", 10, false, true });
+
+    MainGraphics->Render("Zombie", sf::Vector2f(200, 200), sf::Vector2f(1, 1), "Idle", 2);
+
     sf::Time Time = sf::milliseconds(50);
     while (window.isOpen())
     {
@@ -89,10 +75,7 @@ int main()
         // Clear the window
         window.clear();
 
-        NewPlayer.KeyInput();
-        NewPlayer.GameTick();
-        NewPlayer.Draw(window);
-        //Replace the above with a loop for all stored Objects, to render each.
+        MainGraphics->Draw(window);
 
         // UI needs drawing last
         ImGui::SFML::Render(window);
@@ -102,9 +85,9 @@ int main()
         sf::sleep(Time);
     }
 
-    std::cout << "Finished!" << std::endl;
-
 	ImGui::SFML::Shutdown();
+
+    delete MainGraphics;
 
     return 0;
 }
@@ -120,17 +103,8 @@ void DefineGUI()
 
     ImGui::Begin("SpriteControler");				// Create a window
 
-    ImGui::Checkbox("AnimState", &AnimState);
-
-    ImGui::Text("Sprite Position: ");
-    ImGui::SliderFloat("X Position", &XPosition, 0.0f, 800.0f - 100);
-    ImGui::SliderFloat("Y Position", &YPosition, 0.0f, 600.0f - 100);
-
-    ImGui::Text("Sprite Colour: ");
-
-    ImGui::SliderFloat("R", &RValue, 0.0f, 255.0f);
-    ImGui::SliderFloat("G", &GValue, 0.0f, 255.0f);
-    ImGui::SliderFloat("B", &BValue, 0.0f, 255.0f);
+    // ImGui::Checkbox("AnimState", &AnimState);
+    //ImGui::SliderFloat("X Position", &XPosition, 0.0f, 800.0f - 100);
     
    // ImGui::Checkbox("Wireframe", &m_wireframe);	// A checkbox linked to a member variable
 

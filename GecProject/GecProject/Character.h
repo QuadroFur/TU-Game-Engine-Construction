@@ -1,7 +1,6 @@
 #pragma once
 #include "Actor.h"
 #include <string>
-#include "AnimationSetData.h"
 
 class Character :
     public Actor

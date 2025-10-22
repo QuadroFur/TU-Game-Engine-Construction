@@ -1,6 +1,6 @@
 #include "Character2D.h"
 
-void Character2D::AddAnimationSet(const std::string& Name, AnimationSetData& SetData, sf::Texture* Texture)
+void Character2D::AddAnimationSet(const std::string& Name, const AnimationSetData& SetData, sf::Texture* Texture)
 {
 	if (AnimSetData.find(Name) != AnimSetData.end())
 	{

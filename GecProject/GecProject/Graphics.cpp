@@ -16,7 +16,9 @@ bool Graphics::LoadTexture(std::string Filename, std::string Name) {
 }
 bool Graphics::CreateChar2D(const std::string& Name) {
 	Character2D* NewChar = new Character2D;
+
 	Character2DMap[Name] = NewChar;
+	
 	return true;
 }
 
@@ -37,24 +39,24 @@ bool Graphics::AddAnimationSet(const std::string& SetName, const std::string& Ch
 
 void Graphics::Render(const std::string& Char2DName, sf::Vector2f Position, sf::Vector2f Scale, const std::string AnimSetName, int FrameNum)
 {
-	if (Character2DMap.find(Char2DName) != Character2DMap.end() && Character2DMap[Char2DName]->AnimSetData.find(AnimSetName) != Character2DMap[Char2DName]->AnimSetData.end())
+	if (Character2DMap.find(Char2DName) == Character2DMap.end() || Character2DMap[Char2DName]->AnimSetData.find(AnimSetName) == Character2DMap[Char2DName]->AnimSetData.end())
 	{
 		std::cerr << "No Character2D or Animation Set found when rendering! >L43 >Graphics.cpp";
 		return;
 	}
-	Character2D& Char = *Character2DMap[Char2DName]; //Do I call delete on this?
-	Char.Sprite->setTexture(*Char.AnimSetData[AnimSetName].Texture);
-	Char.Sprite->setPosition(Position);
-	Char.Sprite->setScale(Scale);
+	Character2D* Char = Character2DMap[Char2DName]; //Do I call delete on this?
+	Char->Sprite->setTexture(*Char->AnimSetData[AnimSetName].Texture);
+	Char->Sprite->setPosition(Position);
+	Char->Sprite->setScale(Scale);
 
 	//Top-Left : Size
-	if (Char.AnimSetData[AnimSetName].SetData.Orentation == false)
+	if (Char->AnimSetData[AnimSetName].SetData.Orentation == false)
 	{
 		//Calculate Frame Size (width), by size of texture / number of frames
-		int FrameSizeX = Char.AnimSetData[AnimSetName].Texture->getSize().x / Char.AnimSetData[AnimSetName].SetData.NumFrames;
-		int FrameSizeY = Char.AnimSetData[AnimSetName].Texture->getSize().y;
+		int FrameSizeX = Char->AnimSetData[AnimSetName].Texture->getSize().x ;
+		int FrameSizeY = Char->AnimSetData[AnimSetName].Texture->getSize().y / Char->AnimSetData[AnimSetName].SetData.NumFrames;
 		int TopCorner = FrameSizeX * FrameNum; //Top corner is size of 1 frame multiplied by the frame number.
-		Char.Sprite->setTextureRect(sf::IntRect({ TopCorner, 0 }, { FrameSizeX, FrameSizeY }));
+		Char->Sprite->setTextureRect(sf::IntRect({ 0,TopCorner }, { FrameSizeX, FrameSizeY }));
 	}
 	//When FrameSizeY value is moved into the IntRect, an error occurs due to the types being different.
 	//Seems to be due to tge IntRect taking an int Vector2i, but the getSize supplying a unsigned int Vector2u.

@@ -43,16 +43,16 @@ int main()
     //std::filesystem::current_path() returns the expected path.
 
     sf::Texture Tex;
-    if (!MainGraphics->LoadTexture("//Data//Textures//MaleZombie//idle_combined.png", "ZombieIdle"))
+    if (!MainGraphics->LoadTexture("Data/Textures/MaleZombie/idle_combined.png", "ZombieIdle"))
         return 1;
-    if (!MainGraphics->LoadTexture("/Data/Textures/MaleZombie/walk_combined.png", "ZombieWalk"))
+    if (!MainGraphics->LoadTexture("Data/Textures/MaleZombie/walk_combined.png", "ZombieWalk"))
         return 2;
 
     MainGraphics->CreateChar2D("Zombie");
     MainGraphics->AddAnimationSet("Idle", "Zombie", AnimationSetData{ "ZombieIdle", 15, false, true });
     MainGraphics->AddAnimationSet("Walk", "Zombie", AnimationSetData{ "ZombieWalk", 10, false, true });
 
-    MainGraphics->Render("Zombie", sf::Vector2f(200, 200), sf::Vector2f(1, 1), "Idle", 2);
+   
 
     sf::Time Time = sf::milliseconds(50);
     while (window.isOpen())
@@ -77,7 +77,11 @@ int main()
         // Clear the window
         window.clear();
 
+        MainGraphics->Render("Zombie", sf::Vector2f(200, 200), sf::Vector2f(1, 1), "Idle", 2);
+
         MainGraphics->Draw(window);
+
+        
 
         // UI needs drawing last
         ImGui::SFML::Render(window);

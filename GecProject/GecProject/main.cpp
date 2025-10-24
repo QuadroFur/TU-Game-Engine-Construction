@@ -36,12 +36,14 @@ int main()
     //Graphics setup
     Graphics* MainGraphics = new Graphics;
 
-    sf::Texture Tex;
-    std::filesystem::path Path = "/Data/Textures/MaleZombie/Attack (1).png"; //REMOVE THIS
-    if (!Tex.loadFromFile(Path))
-        return 3;
+    //UNKNOWN WHERE DEFAULT FILE PATH POINTS TO.
+    //Until then, hard coded the file path.
 
-    if (!MainGraphics->LoadTexture("/Data/Textures/MaleZombie/idle_combined.png", "ZombieIdle"))
+    //Found default path and all looks good, but sf::Texture LoadTexture doesn't seem to use the default path?
+    //std::filesystem::current_path() returns the expected path.
+
+    sf::Texture Tex;
+    if (!MainGraphics->LoadTexture("//Data//Textures//MaleZombie//idle_combined.png", "ZombieIdle"))
         return 1;
     if (!MainGraphics->LoadTexture("/Data/Textures/MaleZombie/walk_combined.png", "ZombieWalk"))
         return 2;

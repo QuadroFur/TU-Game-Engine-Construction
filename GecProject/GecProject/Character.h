@@ -22,9 +22,6 @@ public:
 
     States CharState = Idle;
 
-    sf::Texture IdleTexture;
-    sf::Texture WalkingTexture;
-
     int TextureFrame = 0;
     float MovementSpeed = 10.0f;
     Directions Direction = Right;
@@ -36,5 +33,7 @@ public:
     void MoveCharacter();
     void UpdateCharState();
 
+    Character();
+    Character(std::vector<std::string>Textures); //Pass list of textures to load, and load one by one.
 };
 

@@ -21,7 +21,6 @@ bool Graphics::CreateChar2D(const std::string& Name) {
 	
 	return true;
 }
-
 bool Graphics::AddAnimationSet(const std::string& SetName, const std::string& CharName, const AnimationSetData& SetData)
 {
 	if (TextureMap.find(SetData.TextureName) == TextureMap.end())
@@ -36,7 +35,6 @@ bool Graphics::AddAnimationSet(const std::string& SetName, const std::string& Ch
 	}
 	Character2DMap[CharName]->AddAnimationSet(SetName, SetData, TextureMap[SetData.TextureName]);
 }
-
 void Graphics::Render(const std::string& Char2DName, sf::Vector2f Position, sf::Vector2f Scale, const std::string AnimSetName, int FrameNum)
 {
 	if (Character2DMap.find(Char2DName) == Character2DMap.end() || Character2DMap[Char2DName]->AnimSetData.find(AnimSetName) == Character2DMap[Char2DName]->AnimSetData.end())
@@ -55,8 +53,15 @@ void Graphics::Render(const std::string& Char2DName, sf::Vector2f Position, sf::
 		//Calculate Frame Size (width), by size of texture / number of frames
 		int FrameSizeX = Char->AnimSetData[AnimSetName].Texture->getSize().x ;
 		int FrameSizeY = Char->AnimSetData[AnimSetName].Texture->getSize().y / Char->AnimSetData[AnimSetName].SetData.NumFrames;
-		int TopCorner = FrameSizeX * FrameNum; //Top corner is size of 1 frame multiplied by the frame number.
-		Char->Sprite->setTextureRect(sf::IntRect({ 0,TopCorner }, { FrameSizeX, FrameSizeY }));
+		int TopCorner = FrameSizeY * FrameNum; //Top corner is size of 1 frame multiplied by the frame number.
+		Char->Sprite->setTextureRect(sf::IntRect({ 0, TopCorner }, { FrameSizeX, FrameSizeY }));
+	}
+	else if (Char->AnimSetData[AnimSetName].SetData.Orentation == true)
+	{
+		int FrameSizeX = Char->AnimSetData[AnimSetName].Texture->getSize().x / Char->AnimSetData[AnimSetName].SetData.NumFrames;
+		int FrameSizeY = Char->AnimSetData[AnimSetName].Texture->getSize().y;
+		int TopCorner = FrameSizeX * FrameNum;
+		Char->Sprite->setTextureRect(sf::IntRect({ TopCorner, 0 }, { FrameSizeX, FrameSizeY }));
 	}
 	//When FrameSizeY value is moved into the IntRect, an error occurs due to the types being different.
 	//Seems to be due to tge IntRect taking an int Vector2i, but the getSize supplying a unsigned int Vector2u.

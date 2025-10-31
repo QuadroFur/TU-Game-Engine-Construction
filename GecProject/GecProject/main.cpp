@@ -9,7 +9,6 @@
 #include <filesystem> //REMOVE THIS
 
 void DefineGUI();
-
 int main()
 {
     // Redirect cout to the Visual Studio output pane
@@ -36,12 +35,6 @@ int main()
     //Graphics setup
     Graphics* MainGraphics = new Graphics;
 
-    //UNKNOWN WHERE DEFAULT FILE PATH POINTS TO.
-    //Until then, hard coded the file path.
-
-    //Found default path and all looks good, but sf::Texture LoadTexture doesn't seem to use the default path?
-    //std::filesystem::current_path() returns the expected path.
-
     sf::Texture Tex;
     if (!MainGraphics->LoadTexture("Data/Textures/MaleZombie/idle_combined.png", "ZombieIdle"))
         return 1;
@@ -51,8 +44,6 @@ int main()
     MainGraphics->CreateChar2D("Zombie");
     MainGraphics->AddAnimationSet("Idle", "Zombie", AnimationSetData{ "ZombieIdle", 15, false, true });
     MainGraphics->AddAnimationSet("Walk", "Zombie", AnimationSetData{ "ZombieWalk", 10, false, true });
-
-   
 
     sf::Time Time = sf::milliseconds(50);
     while (window.isOpen())

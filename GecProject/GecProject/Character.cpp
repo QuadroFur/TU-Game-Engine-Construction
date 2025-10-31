@@ -10,6 +10,12 @@ void Character::UpdateCharState() {
 		TextureFrame = 0;
 	}*/
 }
+Character::Character()
+{
+}
+Character::Character(std::vector<std::string>Textures) {
+
+}
 void Character::MoveCharacter() {
 	if (Direction == Directions::Forward) {
 		Position.y = Position.y - MovementSpeed;

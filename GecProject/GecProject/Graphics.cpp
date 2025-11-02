@@ -2,6 +2,17 @@
 #include <iostream>
 #include "Character2D.h"
 
+//ANIMATION HANDLING
+//
+//	Handle animation playing in Graphics.CPP, but change the loaded anim in the Character, to avoid passing states.
+//	State machine in Character, will then call the animation changes. Naming conventions to be used for the animations,
+//	such as Zombie_Walk, or Zombie_Idle. Each type of character will have their own states to change to.
+//
+//	Base Character state machine will have Idle, Walk, and Death. State machine is virtual, so can be overriden by
+//	other classes inheriting off Character.
+//
+//	Animation handling to be added to 
+
 bool Graphics::LoadTexture(std::string Filename, std::string Name) {
 	if (TextureMap.find(Name) == TextureMap.end())
 	{
@@ -42,7 +53,7 @@ void Graphics::Render(const std::string& Char2DName, sf::Vector2f Position, sf::
 		std::cerr << "No Character2D or Animation Set found when rendering! >L43 >Graphics.cpp";
 		return;
 	}
-	Character2D* Char = Character2DMap[Char2DName]; //Do I call delete on this?
+	Character2D* Char = Character2DMap[Char2DName];
 	Char->Sprite->setTexture(*Char->AnimSetData[AnimSetName].Texture);
 	Char->Sprite->setPosition(Position);
 	Char->Sprite->setScale(Scale);

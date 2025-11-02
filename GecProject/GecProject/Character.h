@@ -31,7 +31,7 @@ public:
     bool EndOverlap(Object Obj) override;
 
     void MoveCharacter();
-    void UpdateCharState();
+    virtual void UpdateCharState();
 
     Character();
     Character(std::vector<std::string>Textures); //Pass list of textures to load, and load one by one.

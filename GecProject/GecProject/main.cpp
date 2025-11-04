@@ -6,6 +6,7 @@
 #include "ExternalHeaders.h"
 #include "RedirectCout.h"
 #include "Graphics.h"
+#include "Player.h"
 #include <filesystem> //REMOVE THIS
 
 void DefineGUI();
@@ -45,6 +46,15 @@ int main()
     MainGraphics->AddAnimationSet("Idle", "Zombie", AnimationSetData{ "ZombieIdle", 15, false, true });
     MainGraphics->AddAnimationSet("Walk", "Zombie", AnimationSetData{ "ZombieWalk", 10, false, true });
 
+    MainGraphics->CreateChar2D("Zombie2");
+    MainGraphics->AddAnimationSet("Idle", "Zombie2", AnimationSetData{ "ZombieIdle", 15, false, true });
+    MainGraphics->AddAnimationSet("Walk", "Zombie2", AnimationSetData{ "ZombieWalk", 10, false, true });
+
+    Player NewPlayer;
+    Player NewPlayer2;
+
+    NewPlayer2.Position = sf::Vector2f(270, 0);
+
     sf::Time Time = sf::milliseconds(50);
     while (window.isOpen())
     {
@@ -65,14 +75,16 @@ int main()
         // The UI gets defined each time
         DefineGUI();
 
+        NewPlayer.KeyInput();
+        NewPlayer2.KeyInput();
+
         // Clear the window
         window.clear();
 
-        MainGraphics->Render("Zombie", sf::Vector2f(200, 200), sf::Vector2f(1, 1), "Idle");
+        MainGraphics->Render("Zombie", NewPlayer.Position, sf::Vector2f(1, 1), "Idle");
+        MainGraphics->Render("Zombie2", NewPlayer2.Position, sf::Vector2f(1, 1), "Idle");
 
         MainGraphics->Draw(window);
-
-        
 
         // UI needs drawing last
         ImGui::SFML::Render(window);

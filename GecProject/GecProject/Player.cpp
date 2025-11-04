@@ -9,7 +9,7 @@ void Player::KeyInput() {
 		if (CharState == States::Idle)	//Only switch the state and update if nessisary, or animation frame will reset.
 		{
 			CharState = Walking;
-			UpdateCharState();
+			//UpdateCharState();
 		}
 	}
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S))
@@ -19,7 +19,7 @@ void Player::KeyInput() {
 		if (CharState == States::Idle)
 		{
 			CharState = Walking;
-			UpdateCharState();
+			//UpdateCharState();
 		}
 	}
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A))
@@ -29,7 +29,7 @@ void Player::KeyInput() {
 		if (CharState == States::Idle)
 		{
 			CharState = Walking;
-			UpdateCharState();
+			//UpdateCharState();
 		}
 	}
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)) {
@@ -38,7 +38,7 @@ void Player::KeyInput() {
 		if (CharState == States::Idle)
 		{
 			CharState = Walking;
-			UpdateCharState();
+			//UpdateCharState();
 		}
 	}
 	else
@@ -46,7 +46,7 @@ void Player::KeyInput() {
 		if (CharState == Walking)	//Only switch the state and update if nessisary, or animation frame will reset.
 		{
 			CharState = Idle;
-			UpdateCharState();
+			//UpdateCharState();
 		}
 	}
 }

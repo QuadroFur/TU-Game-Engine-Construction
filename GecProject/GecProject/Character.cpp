@@ -1,14 +1,14 @@
 #include "Character.h"
 
-void Character::UpdateCharState() {
-	/*if (CharState == Idle) {
-		Texture = IdleTexture;
-		TextureFrame = 0;
+void Character::UpdateCharState(Graphics& Graphics) {
+	if (CharState == Idle)
+	{
+		//Change texture to Idle.
 	}
-	else if (CharState == Walking) {
-		Texture = WalkingTexture;
-		TextureFrame = 0;
-	}*/
+	else if (CharState == Walking)
+	{
+		//Change texture to Walking.
+	}
 }
 Character::Character()
 {

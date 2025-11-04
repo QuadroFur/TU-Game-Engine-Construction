@@ -68,7 +68,7 @@ int main()
         // Clear the window
         window.clear();
 
-        MainGraphics->Render("Zombie", sf::Vector2f(200, 200), sf::Vector2f(1, 1), "Idle", 2);
+        MainGraphics->Render("Zombie", sf::Vector2f(200, 200), sf::Vector2f(1, 1), "Idle");
 
         MainGraphics->Draw(window);
 

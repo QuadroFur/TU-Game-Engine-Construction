@@ -15,6 +15,7 @@ class Character2D
 //private:
 public:
 
+	int FrameNumber{ 0 };
 	std::unordered_map<std::string, AnimSet> AnimSetData; //Moved from Private to access in graphics.
 
 	sf::Sprite* Sprite{ nullptr };

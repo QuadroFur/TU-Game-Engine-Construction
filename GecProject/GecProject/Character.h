@@ -1,6 +1,7 @@
 #pragma once
 #include "Actor.h"
 #include <string>
+#include "Graphics.h"
 
 class Character :
     public Actor
@@ -31,7 +32,7 @@ public:
     bool EndOverlap(Object Obj) override;
 
     void MoveCharacter();
-    virtual void UpdateCharState();
+    virtual void UpdateCharState(Graphics& Graphics);
 
     Character();
     Character(std::vector<std::string>Textures); //Pass list of textures to load, and load one by one.

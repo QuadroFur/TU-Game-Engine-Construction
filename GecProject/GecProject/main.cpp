@@ -44,11 +44,11 @@ int main()
 
     MainGraphics->CreateChar2D("Zombie");
     MainGraphics->AddAnimationSet("Idle", "Zombie", AnimationSetData{ "ZombieIdle", 15, false, true });
-    MainGraphics->AddAnimationSet("Walk", "Zombie", AnimationSetData{ "ZombieWalk", 10, false, true });
+    MainGraphics->AddAnimationSet("Walk", "Zombie", AnimationSetData{ "ZombieWalk", 9, false, true });
 
     MainGraphics->CreateChar2D("Zombie2");
     MainGraphics->AddAnimationSet("Idle", "Zombie2", AnimationSetData{ "ZombieIdle", 15, false, true });
-    MainGraphics->AddAnimationSet("Walk", "Zombie2", AnimationSetData{ "ZombieWalk", 10, false, true });
+    MainGraphics->AddAnimationSet("Walk", "Zombie2", AnimationSetData{ "ZombieWalk", 9, false, true });
 
     Player NewPlayer;
     Player NewPlayer2;
@@ -82,7 +82,7 @@ int main()
         window.clear();
 
         MainGraphics->Render("Zombie", NewPlayer.Position, sf::Vector2f(1, 1), "Idle");
-        MainGraphics->Render("Zombie2", NewPlayer2.Position, sf::Vector2f(1, 1), "Idle");
+        MainGraphics->Render("Zombie2", NewPlayer2.Position, sf::Vector2f(1, 1), "Walk");
 
         MainGraphics->Draw(window);
 

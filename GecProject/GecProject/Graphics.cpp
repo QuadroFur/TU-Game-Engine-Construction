@@ -45,6 +45,7 @@ bool Graphics::AddAnimationSet(const std::string& SetName, const std::string& Ch
 	}
 	Character2DMap[CharName]->AddAnimationSet(SetName, SetData, TextureMap[SetData.TextureName]);
 }
+//Maybe split into seperate functions. One for loading the texture, and another for animations, positions and other dynamic elements. 
 void Graphics::Render(const std::string& Char2DName, sf::Vector2f Position, sf::Vector2f Scale, const std::string AnimSetName)
 {
 
@@ -77,7 +78,7 @@ void Graphics::Render(const std::string& Char2DName, sf::Vector2f Position, sf::
 	//When FrameSizeY value is moved into the IntRect, an error occurs due to the types being different.
 	//Seems to be due to tge IntRect taking an int Vector2i, but the getSize supplying a unsigned int Vector2u.
 	//C++ does not seem to be able to convert the getSize to a standard int (because it doesn't know the type?).
-	//	Works fine when in a dedicated variable though.
+	//Works fine when in a dedicated variable though.
 
 	if (Char->FrameNumber < Char->AnimSetData[AnimSetName].SetData.NumFrames)
 	{

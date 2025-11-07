@@ -80,7 +80,7 @@ void Graphics::Render(const std::string& Char2DName, sf::Vector2f Position, sf::
 	//C++ does not seem to be able to convert the getSize to a standard int (because it doesn't know the type?).
 	//Works fine when in a dedicated variable though.
 
-	if (Char->FrameNumber < Char->AnimSetData[AnimSetName].SetData.NumFrames)
+	if (Char->FrameNumber < Char->AnimSetData[AnimSetName].SetData.NumFrames - 1)
 	{
 		Char->FrameNumber++;
 	}

@@ -12,6 +12,11 @@
 //	other classes inheriting off Character.
 //
 
+//COLLISION HANDLING
+//
+//	Either as it's own class, or as a part of Graphics?
+//	Needs to be able to support at least Square and Circle. Circle for AOE.
+
 bool Graphics::LoadTexture(std::string Filename, std::string Name) {
 	if (TextureMap.find(Name) == TextureMap.end())
 	{
@@ -88,7 +93,6 @@ void Graphics::Render(const std::string& Char2DName, sf::Vector2f Position, sf::
 	{
 		Char->FrameNumber = 0;
 	}
-
 }
 void Graphics::Draw(sf::RenderWindow& Window)
 {

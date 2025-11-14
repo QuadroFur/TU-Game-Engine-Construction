@@ -28,6 +28,7 @@ bool Graphics::LoadTexture(std::string Filename, std::string Name) {
 		TextureMap[Name] = Texture;
 		return true;
 	}
+	else { return false; }
 }
 bool Graphics::CreateChar2D(const std::string& Name) {
 	Character2D* NewChar = new Character2D;
@@ -49,6 +50,7 @@ bool Graphics::AddAnimationSet(const std::string& SetName, const std::string& Ch
 		return false;
 	}
 	Character2DMap[CharName]->AddAnimationSet(SetName, SetData, TextureMap[SetData.TextureName]);
+	return true;
 }
 //Maybe split into seperate functions. One for loading the texture, and another for animations, positions and other dynamic elements.
 void Graphics::Render(const std::string& Char2DName, sf::Vector2f Position, sf::Vector2f Scale, const std::string AnimSetName)

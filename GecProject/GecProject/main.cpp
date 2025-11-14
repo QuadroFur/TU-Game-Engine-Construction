@@ -1,139 +1,17 @@
-/*
-    GecProject - For GEC students to use as a start point for their projects.
-    Already has SFML linked and ImGui set up.
-*/
+
 
 #include "ExternalHeaders.h"
 #include "RedirectCout.h"
-#include "Graphics.h"
-#include "Player.h"
-#include "Collider.h"
+#include "World.h"
 
-void DefineGUI();
 int main()
 {
-    // Redirect cout to the Visual Studio output pane
-    outbuf ob;
-    std::streambuf* sb{ std::cout.rdbuf(&ob) };
 
-    // Redirect cerr
-    outbuferr oberr;
-    std::streambuf* sberr{ std::cerr.rdbuf(&oberr) };
+    World world;
 
-    // Turn on memory leak checking
-    _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+    world.Run();
 
-    // Create the SFML window
-    sf::RenderWindow window(sf::VideoMode({ 800, 600 }), "GEC Start Project");
-
-    // Set up ImGui (the UI library)
-    if (!ImGui::SFML::Init(window))
-        return -1;
-
-    // Clock required by ImGui
-    sf::Clock uiDeltaClock;
-  
-    //Graphics setup
-    Graphics* MainGraphics = new Graphics;
-
-    sf::Texture Tex;
-    if (!MainGraphics->LoadTexture("Data/Textures/MaleZombie/idle_combined.png", "ZombieIdle"))
-        return 1;
-    if (!MainGraphics->LoadTexture("Data/Textures/MaleZombie/walk_combined.png", "ZombieWalk"))
-        return 2;
-
-    MainGraphics->CreateChar2D("Zombie");
-    MainGraphics->AddAnimationSet("Idle", "Zombie", AnimationSetData{ "ZombieIdle", 15, false, true });
-    MainGraphics->AddAnimationSet("Walk", "Zombie", AnimationSetData{ "ZombieWalk", 10, false, true });
-
-    MainGraphics->CreateChar2D("Zombie2");
-    MainGraphics->AddAnimationSet("Idle", "Zombie2", AnimationSetData{ "ZombieIdle", 15, false, true });
-    MainGraphics->AddAnimationSet("Walk", "Zombie2", AnimationSetData{ "ZombieWalk", 10, false, true });
-
-    Player NewPlayer;
-    Player NewPlayer2;
-
-    NewPlayer2.Position = sf::Vector2f(270, 0);
-
-    Actor NewActor;
-    NewActor.Position = sf::Vector2f(200, 200);
-    NewActor.Size = sf::Vector2f(20, 20);
-
-    Collider ActorCollider;
-    ActorCollider.ColliderX = 200;
-    ActorCollider.ColliderY = 200;
-    ActorCollider.ColliderWidth = 20;
-    ActorCollider.ColliderHeight = 20;
-
-    sf::Time Time = sf::milliseconds(50);
-    while (window.isOpen())
-    {
-        // Process events
-        while (const std::optional event = window.pollEvent())
-        {
-            // Feed ImGui
-            ImGui::SFML::ProcessEvent(window, event.value());
-
-            // User clicked on window close X
-            if (event->is<sf::Event::Closed>())
-                window.close();                          
-        }
-
-        // ImGui must be updated each frame
-        ImGui::SFML::Update(window, uiDeltaClock.restart());
-
-        // The UI gets defined each time
-        DefineGUI();
-
-        NewPlayer.KeyInput();
-        NewPlayer2.KeyInput();
-
-        // Clear the window
-        window.clear();
-
-        MainGraphics->Render("Zombie", NewPlayer.Position, sf::Vector2f(1, 1), "Idle");
-        MainGraphics->Render("Zombie2", NewPlayer2.Position, sf::Vector2f(1, 1), "Walk");
-
-        ActorCollider.CheckForCollision(NewPlayer);
-
-        MainGraphics->Draw(window);
-
-        // UI needs drawing last
-        ImGui::SFML::Render(window);
-
-        window.display();
-
-        sf::sleep(Time);
-    }
-
-	ImGui::SFML::Shutdown();
-
-    delete MainGraphics;
 
     return 0;
 }
 
-/*
-    Use IMGUI for a simple on screen GUI
-    See: https://github.com/ocornut/imgui/wiki/
-*/
-void DefineGUI()
-{
-    // Show a simple window that we create ourselves. We use a Begin/End pair to created a named window.
-    ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
-
-    ImGui::Begin("SpriteControler");				// Create a window
-
-    // ImGui::Checkbox("AnimState", &AnimState);
-    //ImGui::SliderFloat("X Position", &XPosition, 0.0f, 800.0f - 100);
-    
-   // ImGui::Checkbox("Wireframe", &m_wireframe);	// A checkbox linked to a member variable
-
-   // ImGui::Checkbox("Cull Face", &m_cullFace);
-
-   // ImGui::SliderFloat("Speed", &gAnimationSpeed, 0.01f, 0.3f);	// Slider from 0.0 to 1.0
-
-    ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
-
-    ImGui::End();
-}

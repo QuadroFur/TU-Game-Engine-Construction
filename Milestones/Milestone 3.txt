@@ -1,0 +1,23 @@
+Cassius Lockwood
+Milestone 3 14/11/2025
+--------------------------------
+
+New Functionality
+-----------------
+
+Collider Class, better entities.
+
+Code Additions
+--------------
+
+The improved collider class, adding the ability to use any entity and add a collider. This also allows for checking for collisions with anything, entity or not.
+
+Tests
+-----
+
+Added a collider to the middle of the world, and ran a check for collision between the zombie and the collider.
+
+Notes
+-----
+
+Improve design and add more general functionality.

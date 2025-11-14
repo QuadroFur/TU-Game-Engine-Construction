@@ -31,9 +31,3 @@ void Character::MoveCharacter() {
 	}
 }
 void Character::GameTick() {};
-bool Character::BeginOverlap(Object Obj) {
-	return false;
-};
-bool Character::EndOverlap(Object Obj) {
-	return false;
-};

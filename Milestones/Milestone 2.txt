@@ -1,0 +1,23 @@
+Cassius Lockwood
+Milestone 2 14/11/2025
+--------------------------------
+
+New Functionality
+-----------------
+
+Colliders, Graphics, and better design.
+
+Code Additions
+--------------
+
+A new class for graphics containing a number of new functions.
+
+Tests
+-----
+
+Added a zombie, and linked the movement system I created before milestone 2 to the new zombie, with working animations, and multiple animation sets.
+
+Notes
+-----
+
+Move colliders to a class and improve design.

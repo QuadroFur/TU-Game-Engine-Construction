@@ -28,8 +28,6 @@ public:
     Directions Direction = Right;
 
     void GameTick() override;
-    bool BeginOverlap(Object Obj) override;
-    bool EndOverlap(Object Obj) override;
 
     void MoveCharacter();
     virtual void UpdateCharState(Graphics& Graphics);

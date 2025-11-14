@@ -7,6 +7,7 @@
 #include "RedirectCout.h"
 #include "Graphics.h"
 #include "Player.h"
+#include "Collider.h"
 
 void DefineGUI();
 int main()
@@ -54,6 +55,16 @@ int main()
 
     NewPlayer2.Position = sf::Vector2f(270, 0);
 
+    Actor NewActor;
+    NewActor.Position = sf::Vector2f(200, 200);
+    NewActor.Size = sf::Vector2f(20, 20);
+
+    Collider ActorCollider;
+    ActorCollider.ColliderX = 200;
+    ActorCollider.ColliderY = 200;
+    ActorCollider.ColliderWidth = 20;
+    ActorCollider.ColliderHeight = 20;
+
     sf::Time Time = sf::milliseconds(50);
     while (window.isOpen())
     {
@@ -82,6 +93,8 @@ int main()
 
         MainGraphics->Render("Zombie", NewPlayer.Position, sf::Vector2f(1, 1), "Idle");
         MainGraphics->Render("Zombie2", NewPlayer2.Position, sf::Vector2f(1, 1), "Walk");
+
+        ActorCollider.CheckForCollision(NewPlayer);
 
         MainGraphics->Draw(window);
 

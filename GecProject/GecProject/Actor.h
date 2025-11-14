@@ -10,9 +10,9 @@ public:
     sf::Vector2f Position;
     sf::Vector2f Size;
 
-    virtual bool BeginOverlap(Object Obj) = 0;
-    virtual bool EndOverlap(Object Obj) = 0;
+    virtual bool BeginOverlap(Object Obj);
+    virtual bool EndOverlap(Object Obj);
 
-    virtual void GameTick() = 0;
+    virtual void GameTick();
     virtual void Draw(sf::RenderWindow& Window);
 };

@@ -1,15 +1,16 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
+#include "Actor.h"
 
-class CircleCollider {
+class Collider {
 
-	sf::CircleShape CircleCollider;
+public:
 
-};
+	int ColliderX;
+	int ColliderY;
+	int ColliderWidth;
+	int ColliderHeight;
 
-class SquareCollider {
-
-	sf::RectangleShape SquareCollider;
-
+	bool CheckForCollision(Actor& OtherActor);
 };

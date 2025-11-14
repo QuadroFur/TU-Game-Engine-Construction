@@ -7,7 +7,6 @@
 #include "RedirectCout.h"
 #include "Graphics.h"
 #include "Player.h"
-#include <filesystem> //REMOVE THIS
 
 void DefineGUI();
 int main()

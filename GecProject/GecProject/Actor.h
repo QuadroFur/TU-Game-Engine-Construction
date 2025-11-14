@@ -15,5 +15,4 @@ public:
 
     virtual void GameTick() = 0;
     virtual void Draw(sf::RenderWindow& Window);
-
 };

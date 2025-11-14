@@ -50,10 +50,9 @@ bool Graphics::AddAnimationSet(const std::string& SetName, const std::string& Ch
 	}
 	Character2DMap[CharName]->AddAnimationSet(SetName, SetData, TextureMap[SetData.TextureName]);
 }
-//Maybe split into seperate functions. One for loading the texture, and another for animations, positions and other dynamic elements. 
+//Maybe split into seperate functions. One for loading the texture, and another for animations, positions and other dynamic elements.
 void Graphics::Render(const std::string& Char2DName, sf::Vector2f Position, sf::Vector2f Scale, const std::string AnimSetName)
 {
-
 	if (Character2DMap.find(Char2DName) == Character2DMap.end() || Character2DMap[Char2DName]->AnimSetData.find(AnimSetName) == Character2DMap[Char2DName]->AnimSetData.end())
 	{
 		std::cerr << "No Character2D or Animation Set found when rendering! >L43 >Graphics.cpp";
@@ -68,7 +67,7 @@ void Graphics::Render(const std::string& Char2DName, sf::Vector2f Position, sf::
 	if (Char->AnimSetData[AnimSetName].SetData.Orentation == false)
 	{
 		//Calculate Frame Size (width), by size of texture / number of frames
-		int FrameSizeX = Char->AnimSetData[AnimSetName].Texture->getSize().x ;
+		int FrameSizeX = Char->AnimSetData[AnimSetName].Texture->getSize().x;
 		int FrameSizeY = Char->AnimSetData[AnimSetName].Texture->getSize().y / Char->AnimSetData[AnimSetName].SetData.NumFrames;
 		int TopCorner = FrameSizeY * Char->FrameNumber; //Top corner is size of 1 frame multiplied by the frame number.
 		Char->Sprite->setTextureRect(sf::IntRect({ 0, TopCorner }, { FrameSizeX, FrameSizeY }));

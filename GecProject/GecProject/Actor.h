@@ -1,15 +1,17 @@
 #pragma once
-#include "Object.h"
 #include <SFML/Graphics.hpp>
-class Actor :
-    public Object
+#include "AnimDataStruct.h"
+
+class Actor
 {
-
 public:
+	sf::Vector2f Position{100, 100};
+	sf::Vector2f Scale{1, 1};
 
-    sf::Vector2f Position;
-    sf::Vector2f Size;
+	sf::Sprite* Sprite{ nullptr };
+	AnimData LoadedAnimData;
+	int RenderFrameNum{ 0 };
 
-    virtual void GameTick();
-    virtual void Draw(sf::RenderWindow& Window);
+	std::unordered_map<std::string, AnimData> AnimationSets;
 };
+

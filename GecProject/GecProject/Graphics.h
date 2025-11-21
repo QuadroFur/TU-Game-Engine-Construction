@@ -1,20 +1,21 @@
 #pragma once
-#include <string>
-#include <unordered_map>
 #include <SFML/Graphics.hpp>
-#include "AnimationSetData.h"
-
-class Character2D;
+#include <unordered_map>
+#include <string>
+#include "AnimDataStruct.h"
+#include "Actor.h"
 
 class Graphics
 {
+
 private:
-	std::unordered_map<std::string, Character2D*> Character2DMap;
 	std::unordered_map<std::string, sf::Texture*> TextureMap;
+	std::unordered_map<std::string, Actor*> Renderable; //MUST BE A POINTER -> Graphics.cpp ln 61.
 public:
-	bool LoadTexture(const std::string Filename, const std::string Name);
-	bool CreateChar2D(const std::string& Name);
-	bool AddAnimationSet(const std::string& SetName, const std::string& CharName, const AnimationSetData& SetData);
-	void Render(const std::string& Char2DName, sf::Vector2f Position, sf::Vector2f Scale, const std::string AnimSetName);
-	void Draw(sf::RenderWindow& Window);
+	bool Addtexture(std::string TextureName, std::string Path);
+	bool AddAnimation(std::string AnimationName, AnimData AnimationData, Actor* Actor);
+	bool ChangeAnimation(std::string AnimationName, Actor* Actor);
+	bool MakeRenderable(std::string ActorName, Actor* RenderableActor);
+	bool RemoveRenderable(std::string ActorName);
+	void Render(sf::RenderWindow& Window);
 };

@@ -1,36 +1,28 @@
 #pragma once
-
+#include <SFML/Graphics.hpp>
 #include "Graphics.h"
-#include "Player.h"
-#include "Collider.h"
+#include "Actor.h"
 
 class World
 {
-public:
-	World();
-	virtual ~World();
 
+public:
 	void Run();
-	void render();
-	void UpdateEvents();
-	void endApplication(); 
-	void updatedt(); 
+
+	World();
+	~World();
+
 private:
 
-	void initWindow();
-	void initGraphics(); 
+	Graphics WorldGraphics;
+	sf::RenderWindow* Window{ nullptr };
+	std::optional<sf::Event> SFEvent;
 
-	sf::RenderWindow* Window = nullptr; 
-	std::optional<sf::Event> sfEvent; 
-	sf::Clock dtClock;
-	float deltaTime = 0;
-	//Graphics setup
-	Graphics* MainGraphics = new Graphics;
-	sf::RenderWindow window; //(sf::VideoMode({ 800, 600 }), "GEC Start Project"); 
+	sf::Clock Clock;
 
-	Player NewPlayer;
-	Collider ActorCollider;
-	sf::Time Time = sf::milliseconds(50);
+	void LoadGraphics();
+	void StepGraphics();
+	void WindowEvents();
 
+	Actor* Player{ nullptr };
 };
-

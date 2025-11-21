@@ -1,105 +1,105 @@
 #include "Graphics.h"
-#include <iostream>
-#include "Character2D.h"
+#include "iostream"
 
-//ANIMATION HANDLING
-//
-//	Handle animation playing in Graphics.CPP, but change the loaded anim in the Character, to avoid passing states.
-//	State machine in Character, will then call the animation changes. Naming conventions to be used for the animations,
-//	such as Zombie_Walk, or Zombie_Idle. Each type of character will have their own states to change to.
-//
-//	Base Character state machine will have Idle, Walk, and Death. State machine is virtual, so can be overriden by
-//	other classes inheriting off Character.
-//
-
-//COLLISION HANDLING
-//
-//	Either as it's own class, or as a part of Graphics?
-//	Needs to be able to support at least Square and Circle. Circle for AOE.
-
-bool Graphics::LoadTexture(std::string Filename, std::string Name) {
-	if (TextureMap.find(Name) == TextureMap.end())
-	{
-		sf::Texture* Texture = new sf::Texture;
-		if (!Texture->loadFromFile(Filename))
-		{
-			return false;
-		}
-		TextureMap[Name] = Texture;
-		return true;
-	}
-	else { return false; }
-}
-bool Graphics::CreateChar2D(const std::string& Name) {
-	Character2D* NewChar = new Character2D;
-
-	Character2DMap[Name] = NewChar;
-	
-	return true;
-}
-bool Graphics::AddAnimationSet(const std::string& SetName, const std::string& CharName, const AnimationSetData& SetData)
+bool Graphics::Addtexture(std::string TextureName, std::string Path)
 {
-	if (TextureMap.find(SetData.TextureName) == TextureMap.end())
+	if (TextureMap.find(TextureName) != TextureMap.end())
 	{
-		std::cerr << "No texture found while adding anim set! L>21 >Graphics.cpp" << std::endl;
+		std::cerr << "Texture with name already exists!" << std::endl;
 		return false;
 	}
-	if (Character2DMap.find(CharName) == Character2DMap.end())
+	sf::Texture* Texture = new sf::Texture;
+	if (!Texture->loadFromFile(Path))
 	{
-		std::cerr << "No sprite found while adding animation set. L>26 >Graphics.cpp" << std::endl;
+		std::cerr << "Bad path for texture!" << std::endl;
 		return false;
 	}
-	Character2DMap[CharName]->AddAnimationSet(SetName, SetData, TextureMap[SetData.TextureName]);
+	TextureMap[TextureName] = Texture;
 	return true;
 }
-//Maybe split into seperate functions. One for loading the texture, and another for animations, positions and other dynamic elements.
-void Graphics::Render(const std::string& Char2DName, sf::Vector2f Position, sf::Vector2f Scale, const std::string AnimSetName)
+bool Graphics::AddAnimation(std::string AnimationName, AnimData AnimationData, Actor* Actor)
 {
-	if (Character2DMap.find(Char2DName) == Character2DMap.end() || Character2DMap[Char2DName]->AnimSetData.find(AnimSetName) == Character2DMap[Char2DName]->AnimSetData.end())
+	if (Actor->AnimationSets.find(AnimationName) != Actor->AnimationSets.end())
 	{
-		std::cerr << "No Character2D or Animation Set found when rendering! >L43 >Graphics.cpp";
-		return;
+		std::cerr << "Animation with name already exists!" << std::endl;
+		return false;
 	}
-	Character2D* Char = Character2DMap[Char2DName];
-	Char->Sprite->setTexture(*Char->AnimSetData[AnimSetName].Texture);
-	Char->Sprite->setPosition(Position);
-	Char->Sprite->setScale(Scale);
-
-	//Top-Left : Size
-	if (Char->AnimSetData[AnimSetName].SetData.Orentation == false)
+	if (TextureMap.find(AnimationData.TextureName) == TextureMap.end())
 	{
-		//Calculate Frame Size (width), by size of texture / number of frames
-		int FrameSizeX = Char->AnimSetData[AnimSetName].Texture->getSize().x;
-		int FrameSizeY = Char->AnimSetData[AnimSetName].Texture->getSize().y / Char->AnimSetData[AnimSetName].SetData.NumFrames;
-		int TopCorner = FrameSizeY * Char->FrameNumber; //Top corner is size of 1 frame multiplied by the frame number.
-		Char->Sprite->setTextureRect(sf::IntRect({ 0, TopCorner }, { FrameSizeX, FrameSizeY }));
+		std::cerr << "Unable to find texture for animation!" << std::endl;
+		return false;
 	}
-	else if (Char->AnimSetData[AnimSetName].SetData.Orentation == true)
+	Actor->AnimationSets[AnimationName] = AnimationData;
+	return true;
+}
+bool Graphics::ChangeAnimation(std::string AnimationName, Actor* Actor)
+{
+	if (Actor->AnimationSets.find(AnimationName) == Actor->AnimationSets.end())
 	{
-		int FrameSizeX = Char->AnimSetData[AnimSetName].Texture->getSize().x / Char->AnimSetData[AnimSetName].SetData.NumFrames;
-		int FrameSizeY = Char->AnimSetData[AnimSetName].Texture->getSize().y;
-		int TopCorner = FrameSizeX * Char->FrameNumber;
-		Char->Sprite->setTextureRect(sf::IntRect({ TopCorner, 0 }, { FrameSizeX, FrameSizeY }));
+		std::cerr << "Unable to find animation for that actor!" << std::endl;
+		return false;
 	}
-	//When FrameSizeY value is moved into the IntRect, an error occurs due to the types being different.
-	//Seems to be due to tge IntRect taking an int Vector2i, but the getSize supplying a unsigned int Vector2u.
-	//C++ does not seem to be able to convert the getSize to a standard int (because it doesn't know the type?).
-	//Works fine when in a dedicated variable though.
-
-	if (Char->FrameNumber < Char->AnimSetData[AnimSetName].SetData.NumFrames - 1)
+	Actor->LoadedAnimData = Actor->AnimationSets[AnimationName];
+	if (Actor->Sprite == nullptr)
 	{
-		Char->FrameNumber++;
+		Actor->Sprite = new sf::Sprite(*TextureMap[Actor->LoadedAnimData.TextureName]);
 	}
 	else
 	{
-		Char->FrameNumber = 0;
+		Actor->Sprite->setTexture(*TextureMap[Actor->LoadedAnimData.TextureName]);
 	}
+	return true;
 }
-void Graphics::Draw(sf::RenderWindow& Window)
+bool Graphics::MakeRenderable(std::string ActorName, Actor* RenderableActor)
 {
-	for (auto& i : Character2DMap)
+	if (Renderable.find(ActorName) != Renderable.end()) {
+		std::cerr << "Actor with name already exists!" << std::endl;
+		return false;
+	}
+	Renderable[ActorName] = RenderableActor;
+	return true;
+}
+bool Graphics::RemoveRenderable(std::string ActorName)
+{
+	if (Renderable.find(ActorName) == Renderable.end())
 	{
-		if (i.second->Sprite != nullptr)
-			Window.draw(*i.second->Sprite);
+		std::cerr << "Actor with name not found!" << std::endl;
+		return false;
+	}
+	Renderable.erase(ActorName);
+}
+
+//KEEP AT THE BOTTOM
+void Graphics::Render(sf::RenderWindow& Window) {
+
+	for (auto& i : Renderable) {
+
+		if (i.second->LoadedAnimData.NumFrames > 1) {
+			if (i.second->LoadedAnimData.Orentation == false)
+			{
+				int FrameSizeX = TextureMap[i.second->LoadedAnimData.TextureName]->getSize().x;
+				int FrameSizeY = TextureMap[i.second->LoadedAnimData.TextureName]->getSize().y / i.second->LoadedAnimData.NumFrames;
+				int TopCorner = FrameSizeY * i.second->RenderFrameNum;
+				i.second->Sprite->setTextureRect(sf::IntRect({ 0, TopCorner }, { FrameSizeX, FrameSizeY }));
+			}
+			else
+			{
+				int FrameSizeX = TextureMap[i.second->LoadedAnimData.TextureName]->getSize().x / i.second->LoadedAnimData.NumFrames;
+				int FrameSizeY = TextureMap[i.second->LoadedAnimData.TextureName]->getSize().y;
+				int TopCorner = FrameSizeX * i.second->RenderFrameNum;
+				i.second->Sprite->setTextureRect(sf::IntRect({ TopCorner, 0 }, { FrameSizeX, FrameSizeY }));
+			}
+			if (i.second->RenderFrameNum < i.second->LoadedAnimData.NumFrames - 1)
+			{
+				i.second->RenderFrameNum++;
+			}
+			else
+			{
+				i.second->RenderFrameNum = 0;
+			}
+		}
+		i.second->Sprite->setPosition(i.second->Position);
+		i.second->Sprite->setScale(i.second->Scale);
+		Window.draw(*i.second->Sprite);
 	}
 }

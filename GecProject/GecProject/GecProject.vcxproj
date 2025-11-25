@@ -138,6 +138,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Actor.cpp" />
+    <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Character.cpp" />
+    <ClCompile Include="Collider.cpp" />
     <ClCompile Include="Graphics.cpp" />
     <ClCompile Include="IMGUI\imgui-SFML.cpp" />
     <ClCompile Include="IMGUI\imgui.cpp" />
@@ -147,14 +150,19 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="RedirectCout.h" />
     <ClCompile Include="Sound.cpp" />
+    <ClCompile Include="Structure.cpp" />
     <ClCompile Include="World.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Actor.h" />
     <ClInclude Include="AnimDataStruct.h" />
+    <ClInclude Include="Camera.h" />
+    <ClInclude Include="Character.h" />
+    <ClInclude Include="Collider.h" />
     <ClInclude Include="ExternalHeaders.h" />
     <ClInclude Include="Graphics.h" />
     <ClInclude Include="Sound.h" />
+    <ClInclude Include="Structure.h" />
     <ClInclude Include="World.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

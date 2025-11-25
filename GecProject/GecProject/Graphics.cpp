@@ -12,6 +12,7 @@ bool Graphics::Addtexture(std::string TextureName, std::string Path)
 	if (!Texture->loadFromFile(Path))
 	{
 		std::cerr << "Bad path for texture!" << std::endl;
+		delete Texture;
 		return false;
 	}
 	TextureMap[TextureName] = Texture;
@@ -102,4 +103,8 @@ void Graphics::Render(sf::RenderWindow& Window) {
 		i.second->Sprite->setScale(i.second->Scale);
 		Window.draw(*i.second->Sprite);
 	}
+}
+Graphics::~Graphics() {
+	TextureMap.clear();
+	Renderable.clear();
 }

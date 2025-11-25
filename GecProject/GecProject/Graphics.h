@@ -18,4 +18,6 @@ public:
 	bool MakeRenderable(std::string ActorName, Actor* RenderableActor);
 	bool RemoveRenderable(std::string ActorName);
 	void Render(sf::RenderWindow& Window);
+
+	~Graphics();
 };

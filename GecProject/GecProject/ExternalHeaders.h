@@ -1,8 +1,6 @@
 #pragma once
 
-#define _CRTDBG_MAP_ALLOC
-#include "imgui.h"
-#include "imgui-SFML.h"
+#define _CRTDBG_MAP_ALLO
 
 #include <crtdbg.h>
 #ifdef _DEBUG
@@ -12,8 +10,6 @@
 #else
 #define MYDEBUG_NEW
 #endif // _DEBUG
-
-#include <cstdlib>
 
 #ifdef _DEBUG
 #define new MYDEBUG_NEW

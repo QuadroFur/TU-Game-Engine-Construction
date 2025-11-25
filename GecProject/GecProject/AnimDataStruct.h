@@ -1,6 +1,5 @@
 #pragma once
 #include <string>
-#include <SFML/Graphics.hpp>
 
 struct AnimData {
 	std::string TextureName;

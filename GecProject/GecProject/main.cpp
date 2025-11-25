@@ -1,8 +1,3 @@
-/*
-    GecProject - For GEC students to use as a start point for their projects.
-    Already has SFML linked and ImGui set up.
-*/
-
 #include "ExternalHeaders.h"
 #include "RedirectCout.h"
 #include "World.h"

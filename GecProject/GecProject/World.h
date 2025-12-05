@@ -15,6 +15,8 @@ public:
 
 private:
 
+	char Map[50][50];
+
 	Graphics WorldGraphics;
 	sf::RenderWindow* Window{ nullptr };
 	Camera MainCamera;

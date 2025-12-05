@@ -1,11 +1,27 @@
 #include "Camera.h"
 #include <SFML/Window/Keyboard.hpp>
+#include <SFML/Window/Mouse.hpp>
 #include <iostream>
 
 Camera::Camera()
 {
 	//{CENTRE}, {SIZE}
 	MainCamera = sf::View({ 400, 400 }, {800, 800});
+}
+
+void Camera::ChangeState()
+{
+	if (IsCameraLocked == false) {
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::B)) {
+			CameraState = Build;
+		}
+		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::C)) {
+			CameraState = Move;
+		}
+		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::V)) {
+			CameraState = Command;
+		}
+	}
 }
 
 void Camera::SetView(sf::RenderWindow& Window)

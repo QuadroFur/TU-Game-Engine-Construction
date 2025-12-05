@@ -35,6 +35,7 @@ void World::StepGraphics()
 			Window->clear();
 			MainCamera.MoveCamera();
 			MainCamera.SetView(*Window);
+			MainCamera.ChangeState(); //Move out into a StepWorld function
 			WorldGraphics.Render(*Window);
 			Clock.restart();
 			Window->display();

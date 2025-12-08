@@ -17,12 +17,14 @@ void World::Run()
 void World::LoadGraphics()
 {
 	Window = new sf::RenderWindow(sf::VideoMode({ 800, 800 }), "GEC");
-	MainCamera.SetView(*Window);
 	WorldGraphics.Addtexture("ZombieIdle", "Data/Textures/MaleZombie/idle_combined.png");
+	WorldGraphics.Addtexture("PlaceSquare", "Data/Textures/Other/Selector.png");
 	Player = new Actor;
 	WorldGraphics.AddAnimation("Idle", AnimData{ "ZombieIdle", 15, false, true }, Player);
 	WorldGraphics.ChangeAnimation("Idle", Player);
 	WorldGraphics.MakeRenderable("Zombie", Player);
+	MainCamera = new Camera(WorldGraphics);
+	MainCamera->SetView(*Window);
 	return;
 }
 void World::StepGraphics()
@@ -33,9 +35,10 @@ void World::StepGraphics()
 		if (Clock.getElapsedTime().asMilliseconds() >= 50)	//Improve to run all the same framerate.
 		{
 			Window->clear();
-			MainCamera.MoveCamera();
-			MainCamera.SetView(*Window);
-			MainCamera.ChangeState(); //Move out into a StepWorld function
+			MainCamera->MoveCamera();
+			MainCamera->SetView(*Window);
+			MainCamera->ChangeState(); //Move out into a StepWorld function
+			MainCamera->StepCamera(WorldGraphics);
 			WorldGraphics.Render(*Window);
 			Clock.restart();
 			Window->display();
@@ -43,9 +46,7 @@ void World::StepGraphics()
 	}
 	return;
 }
-World::World()
-{
-}
+World::World() {}
 World::~World()
 {
 	delete Player;

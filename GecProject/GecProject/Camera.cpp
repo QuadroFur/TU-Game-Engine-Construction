@@ -3,12 +3,14 @@
 #include <SFML/Window/Mouse.hpp>
 #include <iostream>
 
-Camera::Camera()
+Camera::Camera(Graphics& WorldGraphics)
 {
 	//{CENTRE}, {SIZE}
 	MainCamera = sf::View({ 400, 400 }, {800, 800});
+	WorldGraphics.AddAnimation("PlaceSquare", AnimData{ "PlaceSquare", 1, false, false }, &PlaceSquare);
+	WorldGraphics.ChangeAnimation("PlaceSquare", &PlaceSquare);
+	WorldGraphics.MakeRenderable("PlaceSquare", &PlaceSquare);
 }
-
 void Camera::ChangeState()
 {
 	if (IsCameraLocked == false) {
@@ -23,12 +25,10 @@ void Camera::ChangeState()
 		}
 	}
 }
-
 void Camera::SetView(sf::RenderWindow& Window)
 {
 	Window.setView(MainCamera);
 }
-
 void Camera::MoveCamera()
 {
 	if (IsCameraLocked == false) {
@@ -50,4 +50,9 @@ void Camera::MoveCamera()
 		}
 		std::cerr << "Camera Pos: " << MainCamera.getCenter().x << " + " << MainCamera.getCenter().y << std::endl;
 	}
+}
+void Camera::StepCamera(Graphics& WorldGraphics)
+{
+	PlaceSquare.Position.x = sf::Mouse::getPosition().x;
+	PlaceSquare.Position.y = sf::Mouse::getPosition().y;
 }

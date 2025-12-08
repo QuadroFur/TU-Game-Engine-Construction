@@ -1,8 +1,8 @@
 #pragma once
 #include <SFML/Graphics/View.hpp>
-#include <SFML/Graphics/RectangleShape.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
 #include "Graphics.h"
+#include "Actor.h"
 
 class Camera
 {
@@ -15,8 +15,10 @@ private:
 		Command
 	};
 
+	Actor PlaceSquare;
+
 public:
-	Camera();
+	Camera(Graphics& WorldGraphics);
 
 	States CameraState{ Move };
 	bool IsCameraLocked = false;
@@ -24,4 +26,5 @@ public:
 	void ChangeState();
 	void SetView(sf::RenderWindow& Window);
 	void MoveCamera();
+	void StepCamera(Graphics& WorldGraphics);
 };

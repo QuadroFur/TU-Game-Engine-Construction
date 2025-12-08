@@ -19,7 +19,7 @@ private:
 
 	Graphics WorldGraphics;
 	sf::RenderWindow* Window{ nullptr };
-	Camera MainCamera;
+	Camera* MainCamera{ nullptr };
 	std::optional<sf::Event> SFEvent;
 
 	sf::Clock Clock;

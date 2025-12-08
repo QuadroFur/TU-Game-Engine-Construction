@@ -71,7 +71,8 @@ bool Graphics::RemoveRenderable(std::string ActorName)
 }
 
 //KEEP AT THE BOTTOM
-void Graphics::Render(sf::RenderWindow& Window) {
+void Graphics::Render(sf::RenderWindow& Window) //DO NOT CALL OUTSIDE OF WORLD FUNCTION
+{
 
 	for (auto& i : Renderable) {
 

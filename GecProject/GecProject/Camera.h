@@ -26,5 +26,5 @@ public:
 	void ChangeState();
 	void SetView(sf::RenderWindow& Window);
 	void MoveCamera();
-	void StepCamera(Graphics& WorldGraphics);
+	void StepCamera(Graphics& WorldGraphics, sf::RenderWindow& Window);
 };

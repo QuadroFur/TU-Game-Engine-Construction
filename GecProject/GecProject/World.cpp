@@ -32,13 +32,13 @@ void World::StepGraphics()
 	while (Window->isOpen())
 	{
 		WindowEvents();
-		if (Clock.getElapsedTime().asMilliseconds() >= 50)	//Improve to run all the same framerate.
+		if (Clock.getElapsedTime().asMilliseconds() >= 2)	//Improve to run all the same framerate.
 		{
 			Window->clear();
 			MainCamera->MoveCamera();
 			MainCamera->SetView(*Window);
 			MainCamera->ChangeState(); //Move out into a StepWorld function
-			MainCamera->StepCamera(WorldGraphics);
+			MainCamera->StepCamera(WorldGraphics, *Window);
 			WorldGraphics.Render(*Window);
 			Clock.restart();
 			Window->display();

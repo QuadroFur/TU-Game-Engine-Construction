@@ -51,8 +51,10 @@ void Camera::MoveCamera()
 		std::cerr << "Camera Pos: " << MainCamera.getCenter().x << " + " << MainCamera.getCenter().y << std::endl;
 	}
 }
-void Camera::StepCamera(Graphics& WorldGraphics)
+void Camera::StepCamera(Graphics& WorldGraphics, sf::RenderWindow& Window)
 {
-	PlaceSquare.Position.x = sf::Mouse::getPosition().x;
-	PlaceSquare.Position.y = sf::Mouse::getPosition().y;
+	sf::Vector2i MousePos = sf::Mouse::getPosition(Window);
+	sf::Vector2f WorldPos = Window.mapPixelToCoords(MousePos);
+	PlaceSquare.Position.x = WorldPos.x;
+	PlaceSquare.Position.y = WorldPos.y;
 }

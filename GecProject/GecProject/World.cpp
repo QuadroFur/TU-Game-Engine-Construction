@@ -9,7 +9,7 @@ void World::GenerateLevel(int MapSize) {
 			//An algorithm using perlin noise to map terrain heights.
 
 			//int TerrainHeight = 0;
-			TerrainMap[y][x] == '-';
+			//TerrainMap[y][x] == '-';
 		}
 	}
 }
@@ -21,8 +21,8 @@ void World::LoadLevel(std::string Path) {
 
 bool World::CheckFreeSpace(int X, int Y) {
 
-	if (TerrainMap[Y][X] == '-' && StructureMap[Y][X] == '-')
-		return true;
+	//if (TerrainMap[Y][X] == '-' && StructureMap[Y][X] == '-')
+		//return true;
 	//else:
 	return false;
 }

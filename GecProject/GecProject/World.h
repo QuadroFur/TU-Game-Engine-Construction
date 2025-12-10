@@ -5,8 +5,8 @@ class World
 {
 private:
 
-	char TerrainMap[1000][1000];
-	char StructureMap[1000][1000];
+	//char TerrainMap[1000][1000];
+	//char StructureMap[1000][1000];
 	//float PathMap[1000][1000];
 
 public:

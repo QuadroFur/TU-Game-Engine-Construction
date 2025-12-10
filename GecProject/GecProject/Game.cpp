@@ -20,7 +20,7 @@ void Game::LoadGraphics()
 	GameGraphics.Addtexture("ZombieIdle", "Data/Textures/MaleZombie/idle_combined.png");
 	GameGraphics.Addtexture("PlaceSquare", "Data/Textures/Other/Selector.png");
 	Player = new Actor;
-	GameGraphics.AddAnimation("Idle", AnimData{ "ZombieIdle", 15, false, true, sf::Time(sf::seconds(1.0f / 15.0f))}, Player);
+	GameGraphics.AddAnimation("Idle", AnimData{ "ZombieIdle", 15, false, true, sf::Time(sf::seconds(1.0f / 120.0f))}, Player);
 	GameGraphics.ChangeAnimation("Idle", Player);
 	GameGraphics.MakeRenderable("Zombie", Player);
 	MainCamera = new Camera(GameGraphics);

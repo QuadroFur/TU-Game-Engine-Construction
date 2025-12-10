@@ -15,8 +15,8 @@ int main()
     // Turn on memory leak checking
     _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 
-    World NewWorld;
-    NewWorld.Run();
+    Game NewGame;
+    NewGame.Run();
 
     return 0;
 }

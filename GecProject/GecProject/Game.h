@@ -1,30 +1,28 @@
 #pragma once
-#include <SFML/Graphics.hpp>
+//#include <SFML/Graphics.hpp>
 #include "Graphics.h"
 #include "Camera.h"
 #include "Actor.h"
+#include "World.h"
 
-class World
+class Game
 {
 
 public:
 	void Run();
 
-	World();
-	~World();
+	Game();
+	~Game();
 
 private:
 
-	char Map[50][50];
-
-	Graphics WorldGraphics;
+	Graphics GameGraphics;
 	sf::RenderWindow* Window{ nullptr };
 	Camera* MainCamera{ nullptr };
 	std::optional<sf::Event> SFEvent;
-
 	sf::Clock Clock;
 
-	//char Map[1000][1000];
+	World GameWorld;
 
 	void LoadGraphics();
 	void StepGraphics();

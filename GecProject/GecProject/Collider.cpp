@@ -5,7 +5,6 @@ Collider::Collider(sf::FloatRect Bounds)
 {
 	BoundingBox = Bounds;
 }
-
 Collider::Collider()
 {
 }

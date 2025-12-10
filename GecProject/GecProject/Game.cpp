@@ -1,4 +1,4 @@
-#include "World.h"
+#include "Game.h"
 #include "AnimDataStruct.h"
 
 void World::WindowEvents()
@@ -20,7 +20,7 @@ void World::LoadGraphics()
 	WorldGraphics.Addtexture("ZombieIdle", "Data/Textures/MaleZombie/idle_combined.png");
 	WorldGraphics.Addtexture("PlaceSquare", "Data/Textures/Other/Selector.png");
 	Player = new Actor;
-	WorldGraphics.AddAnimation("Idle", AnimData{ "ZombieIdle", 15, false, true }, Player);
+	WorldGraphics.AddAnimation("Idle", AnimData{ "ZombieIdle", 15, false, true, sf::Time(sf::seconds(1.0f / 15.0f))}, Player);
 	WorldGraphics.ChangeAnimation("Idle", Player);
 	WorldGraphics.MakeRenderable("Zombie", Player);
 	MainCamera = new Camera(WorldGraphics);
@@ -32,17 +32,13 @@ void World::StepGraphics()
 	while (Window->isOpen())
 	{
 		WindowEvents();
-		if (Clock.getElapsedTime().asMilliseconds() >= 2)	//Improve to run all the same framerate.
-		{
-			Window->clear();
-			MainCamera->MoveCamera();
-			MainCamera->SetView(*Window);
-			MainCamera->ChangeState(); //Move out into a StepWorld function
-			MainCamera->StepCamera(WorldGraphics, *Window);
-			WorldGraphics.Render(*Window);
-			Clock.restart();
-			Window->display();
-		}
+		Window->clear();
+		MainCamera->MoveCamera();
+		MainCamera->SetView(*Window);
+		MainCamera->ChangeState(); //Move out into a StepWorld function
+		MainCamera->StepCamera(WorldGraphics, *Window);
+		WorldGraphics.Render(*Window, Clock);
+		Window->display();
 	}
 	return;
 }

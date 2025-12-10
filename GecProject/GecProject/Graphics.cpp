@@ -71,12 +71,11 @@ bool Graphics::RemoveRenderable(std::string ActorName)
 }
 
 //KEEP AT THE BOTTOM
-void Graphics::Render(sf::RenderWindow& Window) //DO NOT CALL OUTSIDE OF WORLD FUNCTION
+void Graphics::Render(sf::RenderWindow& Window, sf::Clock& Clock) //DO NOT CALL OUTSIDE OF WORLD FUNCTION
 {
-
 	for (auto& i : Renderable) {
-
-		if (i.second->LoadedAnimData.NumFrames > 1) {
+		sf::Time CurrentTime = Clock.getElapsedTime();
+		if (i.second->LoadedAnimData.NumFrames > 1 && CurrentTime - i.second->LoadedAnimData.FrameStartTime >= i.second->LoadedAnimData.FrameTime) {
 			if (i.second->LoadedAnimData.Orentation == false)
 			{
 				int FrameSizeX = TextureMap[i.second->LoadedAnimData.TextureName]->getSize().x;
@@ -99,6 +98,7 @@ void Graphics::Render(sf::RenderWindow& Window) //DO NOT CALL OUTSIDE OF WORLD F
 			{
 				i.second->RenderFrameNum = 0;
 			}
+			i.second->LoadedAnimData.FrameStartTime = CurrentTime;
 		}
 		i.second->Sprite->setPosition(i.second->Position);
 		i.second->Sprite->setScale(i.second->Scale);

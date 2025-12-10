@@ -151,7 +151,7 @@
     <ClCompile Include="RedirectCout.h" />
     <ClCompile Include="Sound.cpp" />
     <ClCompile Include="Structure.cpp" />
-    <ClCompile Include="World.cpp" />
+    <ClCompile Include="Game.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Actor.h" />
@@ -163,7 +163,7 @@
     <ClInclude Include="Graphics.h" />
     <ClInclude Include="Sound.h" />
     <ClInclude Include="Structure.h" />
-    <ClInclude Include="World.h" />
+    <ClInclude Include="Game.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

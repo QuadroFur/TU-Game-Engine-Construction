@@ -1,6 +1,6 @@
 #include "ExternalHeaders.h"
 #include "RedirectCout.h"
-#include "World.h"
+#include "Game.h"
 
 int main()
 {

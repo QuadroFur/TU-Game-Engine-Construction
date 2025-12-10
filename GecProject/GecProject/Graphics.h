@@ -17,7 +17,7 @@ public:
 	bool ChangeAnimation(std::string AnimationName, Actor* Actor);
 	bool MakeRenderable(std::string ActorName, Actor* RenderableActor);
 	bool RemoveRenderable(std::string ActorName);
-	void Render(sf::RenderWindow& Window);
+	void Render(sf::RenderWindow& Window, sf::Clock& Clock);
 
 	~Graphics();
 };

@@ -36,7 +36,7 @@ void Game::StepGraphics()
 		MainCamera->MoveCamera();
 		MainCamera->SetView(*Window);
 		MainCamera->ChangeState(); //Move out into a StepWorld function
-		MainCamera->StepCamera(GameGraphics, *Window);
+		MainCamera->StepCamera(GameGraphics, *Window, GameWorld);
 		GameGraphics.Render(*Window, Clock);
 		Window->display();
 	}

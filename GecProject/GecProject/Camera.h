@@ -3,6 +3,7 @@
 #include <SFML/Graphics/RenderWindow.hpp>
 #include "Graphics.h"
 #include "Actor.h"
+#include "World.h"
 
 class Camera
 {
@@ -26,5 +27,5 @@ public:
 	void ChangeState();
 	void SetView(sf::RenderWindow& Window);
 	void MoveCamera();
-	void StepCamera(Graphics& WorldGraphics, sf::RenderWindow& Window);
+	void StepCamera(Graphics& WorldGraphics, sf::RenderWindow& Window, World& GameWorld);
 };

@@ -1,4 +1,5 @@
 #include "World.h"
+#include <cmath>
 
 void World::GenerateLevel(int MapSize) {
 
@@ -25,4 +26,15 @@ bool World::CheckFreeSpace(int X, int Y) {
 		//return true;
 	//else:
 	return false;
+}
+
+sf::Vector2f World::GetGridPosition(sf::Vector2f Pos)
+{
+	float PosX = Pos.x;
+	float PosY = Pos.y;
+	PosX = std::floor(PosX / GridSize) * GridSize;
+	PosY = std::floor(PosY / GridSize) * GridSize;
+	//PosX = PosX / GridSize * GridSize;
+	//PosY = PosY / GridSize * GridSize;
+	return sf::Vector2f(PosX, PosY);
 }

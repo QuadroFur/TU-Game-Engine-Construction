@@ -9,5 +9,4 @@ class Structure :
 public:
     int Health = 100;
     Collider StructureBounds;
-
 };

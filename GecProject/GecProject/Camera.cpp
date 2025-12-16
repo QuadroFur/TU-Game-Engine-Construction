@@ -2,6 +2,7 @@
 #include <SFML/Window/Keyboard.hpp>
 #include <SFML/Window/Mouse.hpp>
 #include <iostream>
+#include "PowerPlant.h"
 
 Camera::Camera(Graphics& WorldGraphics)
 {
@@ -34,19 +35,19 @@ void Camera::MoveCamera()
 	if (IsCameraLocked == false) {
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W))
 		{
-			MainCamera.move(sf::Vector2f(0, 5));
+			MainCamera.move(sf::Vector2f(0, -5));
 		}
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S))
 		{
-			MainCamera.move(sf::Vector2f(0, -5));
+			MainCamera.move(sf::Vector2f(0, 5));
 		}
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A))
 		{
-			MainCamera.move(sf::Vector2f(5, 0));
+			MainCamera.move(sf::Vector2f(-5, 0));
 		}
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D))
 		{
-			MainCamera.move(sf::Vector2f(-5, 0));
+			MainCamera.move(sf::Vector2f(5, 0));
 		}
 		std::cerr << "Camera Pos: " << MainCamera.getCenter().x << " + " << MainCamera.getCenter().y << std::endl;
 	}
@@ -56,4 +57,13 @@ void Camera::StepCamera(Graphics& WorldGraphics, sf::RenderWindow& Window, World
 	sf::Vector2i MousePos = sf::Mouse::getPosition(Window);
 	sf::Vector2f WorldPos = Window.mapPixelToCoords(MousePos);
 	PlaceSquare.Position = GameWorld.GetGridPosition(WorldPos);
+
+	if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left) && CameraState == Build)
+	{
+		PowerPlant* NewStructure{ nullptr };
+		NewStructure = new PowerPlant(WorldGraphics);
+		std::string NewStructName = "" + std::to_string(PlaceSquare.Position.x) + " " + std::to_string(PlaceSquare.Position.y);
+		NewStructure->Position = PlaceSquare.Position;
+		WorldGraphics.MakeRenderable(NewStructName, NewStructure);
+	}
 }

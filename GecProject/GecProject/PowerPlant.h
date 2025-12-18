@@ -1,6 +1,7 @@
 #pragma once
 #include "Structure.h"
 #include "Graphics.h"
+#include "GameData.h"
 
 class PowerPlant :
     public Structure
@@ -8,6 +9,8 @@ class PowerPlant :
 private:
     int PowerProduction{ 10 };
 public:
-    PowerPlant(Graphics& WorldGraphics);
+    PowerPlant(Graphics& WorldGraphics, GameDataStruct& GameData);
+    void StructureBuild(GameDataStruct& GameData) override;
+    void StructureTick(GameDataStruct& GameData) override;
 };
 

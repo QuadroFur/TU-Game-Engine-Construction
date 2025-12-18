@@ -1,5 +1,6 @@
 #include "Game.h"
-#include "AnimDataStruct.h"
+#include <iostream>
+#include "PowerPlant.h"
 
 void Game::WindowEvents()
 {
@@ -28,6 +29,7 @@ void Game::StepGraphics()
 	while (Window->isOpen())
 	{
 		WindowEvents();
+		StepGameplay();
 		Window->clear();
 		MainCamera->MoveCamera();
 		MainCamera->SetView(*Window);
@@ -38,6 +40,25 @@ void Game::StepGraphics()
 	}
 	return;
 }
+void Game::StepGameplay()
+{
+	sf::Vector2i MousePos = sf::Mouse::getPosition(*Window);
+	sf::Vector2f WorldPos = Window->mapPixelToCoords(MousePos);
+	if (MainCamera->CameraState == MainCamera->Build && sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
+	{
+		PowerPlant* NewStructure{ nullptr };
+		NewStructure = new PowerPlant(GameGraphics, GameData);
+		bool out = GameWorld.PlaceStructure(GameGraphics, WorldPos, NewStructure, GameData);
+		if (!out)
+		{
+			std::cerr << "Structure did not place!" << std::endl;
+		}
+		std::cout << "Resources " + GameData.Resources << std::endl;
+		std::cout << "Power " + GameData.Power << std::endl;
+	}
+}
+
+//Constructor and Destructor
 Game::Game() {}
 Game::~Game()
 {

@@ -162,6 +162,7 @@
     <ClInclude Include="Character.h" />
     <ClInclude Include="Collider.h" />
     <ClInclude Include="ExternalHeaders.h" />
+    <ClInclude Include="GameData.h" />
     <ClInclude Include="Graphics.h" />
     <ClInclude Include="PowerPlant.h" />
     <ClInclude Include="Sound.h" />

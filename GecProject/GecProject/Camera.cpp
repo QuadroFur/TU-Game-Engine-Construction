@@ -49,7 +49,6 @@ void Camera::MoveCamera()
 		{
 			MainCamera.move(sf::Vector2f(5, 0));
 		}
-		std::cerr << "Camera Pos: " << MainCamera.getCenter().x << " + " << MainCamera.getCenter().y << std::endl;
 	}
 }
 void Camera::StepCamera(Graphics& WorldGraphics, sf::RenderWindow& Window, World& GameWorld)
@@ -57,13 +56,4 @@ void Camera::StepCamera(Graphics& WorldGraphics, sf::RenderWindow& Window, World
 	sf::Vector2i MousePos = sf::Mouse::getPosition(Window);
 	sf::Vector2f WorldPos = Window.mapPixelToCoords(MousePos);
 	PlaceSquare.Position = GameWorld.GetGridPosition(WorldPos);
-
-	if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left) && CameraState == Build)
-	{
-		PowerPlant* NewStructure{ nullptr };
-		NewStructure = new PowerPlant(WorldGraphics);
-		std::string NewStructName = "" + std::to_string(PlaceSquare.Position.x) + " " + std::to_string(PlaceSquare.Position.y);
-		NewStructure->Position = PlaceSquare.Position;
-		WorldGraphics.MakeRenderable(NewStructName, NewStructure);
-	}
 }

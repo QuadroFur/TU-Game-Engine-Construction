@@ -4,9 +4,8 @@
 
 class Actor
 {
-private:
-	std::string Name;
 public:
+	std::string Name;
 	sf::Vector2f Position{100, 100};
 	sf::Vector2f Scale{1, 1};
 

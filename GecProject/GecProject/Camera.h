@@ -9,6 +9,9 @@ class Camera
 {
 private:
 	sf::View MainCamera;
+	Actor PlaceSquare;
+
+public:
 
 	enum States {
 		Move,
@@ -16,9 +19,8 @@ private:
 		Command
 	};
 
-	Actor PlaceSquare;
-
 public:
+
 	Camera(Graphics& WorldGraphics);
 
 	States CameraState{ Move };

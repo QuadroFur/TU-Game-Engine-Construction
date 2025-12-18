@@ -4,6 +4,7 @@
 
 int main()
 {
+
     // Redirect cout to the Visual Studio output pane
     outbuf ob;
     std::streambuf* sb{ std::cout.rdbuf(&ob) };

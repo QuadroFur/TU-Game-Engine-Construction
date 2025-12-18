@@ -39,3 +39,11 @@ bool Sound::PlaySound(std::string SoundName) {
 	Sound.play();
 	return true;
 }
+
+Sound::~Sound()
+{
+	for (auto& i : SFX) {
+		delete i.second;
+	}
+	SFX.clear();
+}

@@ -68,6 +68,7 @@ bool Graphics::RemoveRenderable(std::string ActorName)
 		return false;
 	}
 	Renderable.erase(ActorName);
+	return true;
 }
 
 //KEEP AT THE BOTTOM
@@ -106,6 +107,13 @@ void Graphics::Render(sf::RenderWindow& Window, sf::Clock& Clock) //DO NOT CALL 
 	}
 }
 Graphics::~Graphics() {
+	RemoveRenderable("PlaceSquare");
+	for (auto& i : Renderable) {
+		delete i.second;
+	}
+	for (auto& i : TextureMap) {
+		delete i.second;
+	}
 	TextureMap.clear();
 	Renderable.clear();
 }

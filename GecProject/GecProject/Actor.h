@@ -14,4 +14,6 @@ public:
 	int RenderFrameNum{ 0 };
 
 	std::unordered_map<std::string, AnimData> AnimationSets;
+
+	~Actor();
 };

@@ -13,4 +13,5 @@ public:
 	bool LoadTrack(std::string TrackName, std::string Path);
 
 	bool PlaySound(std::string SoundName);
+	~Sound();
 };

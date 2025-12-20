@@ -13,5 +13,5 @@ public:
     Collider StructureBounds;
 
     virtual void StructureBuild(GameDataStruct& GameData) = 0; //Runs once, when the structure is first made.
-    virtual void StructureTick(GameDataStruct& GameData) = 0; //Runs every frame, to step the structure.
+    virtual void StructureTick(GameDataStruct& GameData, sf::Clock Clock) = 0; //Runs every frame, to step the structure.
 };

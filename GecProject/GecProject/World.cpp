@@ -26,8 +26,9 @@ bool World::PlaceStructure(Graphics& WorldGraphics, sf::Vector2f WorldPosition, 
 	sf::Vector2f GridPosition = GetGridPosition(WorldPosition);
 	//Structure Key == X.Y-NAME;
 	std::string StructureKey = std::to_string(GridPosition.x) + '.' + std::to_string(GridPosition.y) + '-' + Structure->Name;
-	if (StructureList.find(StructureKey) != StructureList.end() && GameData.Resources >= Structure->Cost) {
+	if (StructureList.find(StructureKey) != StructureList.end() || GameData.Resources < Structure->Cost) {
 		std::cerr << "Structure with key already exists or not enough resources!" << std::endl;
+		delete Structure;
 		return false;
 	}
 	Structure->Position = GridPosition;
@@ -62,6 +63,7 @@ void World::GameTick(GameDataStruct& GameData)
 {
 	for (auto& i : StructureList)
 	{
-		i.second->StructureTick(GameData);
+		sf::Clock Clock;
+		i.second->StructureTick(GameData, Clock);
 	}
 }

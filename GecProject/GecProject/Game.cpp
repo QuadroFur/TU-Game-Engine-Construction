@@ -1,6 +1,7 @@
 #include "Game.h"
 #include <iostream>
 #include "PowerPlant.h"
+#include "Drill.h"
 
 void Game::WindowEvents()
 {
@@ -19,6 +20,7 @@ void Game::LoadGraphics()
 {
 	Window = new sf::RenderWindow(sf::VideoMode({ 800, 800 }), "GEC");
 	GameGraphics.Addtexture("PowerPlantIdle", "Data/Textures/Structures/Power Plant.png");
+	GameGraphics.Addtexture("DrillIdle", "Data/Textures/Structures/Drill.png");
 	GameGraphics.Addtexture("PlaceSquare", "Data/Textures/Other/Selector.png");
 	MainCamera = new Camera(GameGraphics);
 	MainCamera->SetView(*Window);
@@ -42,19 +44,21 @@ void Game::StepGraphics()
 }
 void Game::StepGameplay()
 {
-	sf::Vector2i MousePos = sf::Mouse::getPosition(*Window);
-	sf::Vector2f WorldPos = Window->mapPixelToCoords(MousePos);
-	if (MainCamera->CameraState == MainCamera->Build && sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
-	{
-		PowerPlant* NewStructure{ nullptr };
-		NewStructure = new PowerPlant(GameGraphics, GameData);
-		bool out = GameWorld.PlaceStructure(GameGraphics, WorldPos, NewStructure, GameData);
-		if (!out)
+	if (Window->hasFocus()) {
+		sf::Vector2i MousePos = sf::Mouse::getPosition(*Window);
+		sf::Vector2f WorldPos = Window->mapPixelToCoords(MousePos);
+		if (MainCamera->CameraState == MainCamera->Build && sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
 		{
-			std::cerr << "Structure did not place!" << std::endl;
+			PowerPlant* NewStructure{ nullptr };
+			NewStructure = new PowerPlant(GameGraphics, GameData);
+			bool out = GameWorld.PlaceStructure(GameGraphics, WorldPos, NewStructure, GameData);
+			if (!out)
+			{
+				std::cerr << "Structure did not place!" << std::endl;
+			}
+			std::cout << "Resources " + std::to_string(GameData.Resources) << std::endl;
+			std::cout << "Power " + std::to_string(GameData.Power) << std::endl;
 		}
-		std::cout << "Resources " + GameData.Resources << std::endl;
-		std::cout << "Power " + GameData.Power << std::endl;
 	}
 }
 

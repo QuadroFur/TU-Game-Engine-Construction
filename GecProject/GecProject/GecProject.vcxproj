@@ -148,6 +148,7 @@
     <ClCompile Include="IMGUI\imgui_draw.cpp" />
     <ClCompile Include="IMGUI\imgui_tables.cpp" />
     <ClCompile Include="IMGUI\imgui_widgets.cpp" />
+    <ClCompile Include="Infantry.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="PowerPlant.cpp" />
     <ClCompile Include="RedirectCout.h" />
@@ -166,6 +167,7 @@
     <ClInclude Include="ExternalHeaders.h" />
     <ClInclude Include="GameData.h" />
     <ClInclude Include="Graphics.h" />
+    <ClInclude Include="Infantry.h" />
     <ClInclude Include="PowerPlant.h" />
     <ClInclude Include="Sound.h" />
     <ClInclude Include="Structure.h" />

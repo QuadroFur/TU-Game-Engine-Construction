@@ -42,6 +42,7 @@ void Game::StepGraphics()
 	}
 	return;
 }
+
 void Game::StepGameplay()
 {
 	if (Window->hasFocus()) {
@@ -49,8 +50,8 @@ void Game::StepGameplay()
 		sf::Vector2f WorldPos = Window->mapPixelToCoords(MousePos);
 		if (MainCamera->CameraState == MainCamera->Build && sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
 		{
-			PowerPlant* NewStructure{ nullptr };
-			NewStructure = new PowerPlant(GameGraphics, GameData);
+			Drill* NewStructure{ nullptr };
+			NewStructure = new Drill(GameGraphics, GameData);
 			bool out = GameWorld.PlaceStructure(GameGraphics, WorldPos, NewStructure, GameData);
 			if (!out)
 			{

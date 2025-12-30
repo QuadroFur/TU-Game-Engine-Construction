@@ -22,6 +22,7 @@ public:
 
 	bool CheckFreeSpace(int X, int Y);
 	sf::Vector2f GetGridPosition(sf::Vector2f Pos);
+	int GetGridSize() { return GridSize; }
 
 	void GameTick(GameDataStruct& GameData);
 };

@@ -1,6 +1,6 @@
-#include "Character.h"
+#include "Unit.h"
 
-void Character::MoveCharacter()
+void Unit::MoveUnit()
 {
 	if (Direction == Forward) {
 		Position.y = Position.y - MovementSpeed;

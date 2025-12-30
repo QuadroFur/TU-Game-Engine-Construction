@@ -139,7 +139,7 @@
   <ItemGroup>
     <ClCompile Include="Actor.cpp" />
     <ClCompile Include="Camera.cpp" />
-    <ClCompile Include="Character.cpp" />
+    <ClCompile Include="Unit.cpp" />
     <ClCompile Include="Collider.cpp" />
     <ClCompile Include="Drill.cpp" />
     <ClCompile Include="Graphics.cpp" />
@@ -161,7 +161,7 @@
     <ClInclude Include="Actor.h" />
     <ClInclude Include="AnimDataStruct.h" />
     <ClInclude Include="Camera.h" />
-    <ClInclude Include="Character.h" />
+    <ClInclude Include="Unit.h" />
     <ClInclude Include="Collider.h" />
     <ClInclude Include="Drill.h" />
     <ClInclude Include="ExternalHeaders.h" />

@@ -1,9 +1,11 @@
 #pragma once
 //#include <SFML/Graphics.hpp>
+#include <unordered_map>
 #include "Graphics.h"
 #include "Camera.h"
 #include "Actor.h"
 #include "World.h"
+#include "Unit.h"
 #include "GameData.h"
 
 class Game
@@ -22,6 +24,8 @@ private:
 	Camera* MainCamera{ nullptr };
 	std::optional<sf::Event> SFEvent;
 	sf::Clock Clock;
+
+	std::unordered_map<std::string, Unit*>UnitList;
 
 	World GameWorld;
 

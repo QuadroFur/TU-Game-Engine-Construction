@@ -1,9 +1,9 @@
 #pragma once
-#include "Character.h"
+#include "Unit.h"
 #include "World.h" //Already has Vector2f included, so passes into this.
 
 class Infantry :
-    public Character
+    public Unit
 {
 
 private:

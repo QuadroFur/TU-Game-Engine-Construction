@@ -14,7 +14,12 @@ void Game::WindowEvents()
 void Game::Run()
 {
 	LoadGraphics();
-	StepGraphics();
+	while (Window->isOpen())
+	{
+		WindowEvents();
+		StepGameplay();
+		StepGraphics();
+	}
 }
 void Game::LoadGraphics()
 {
@@ -28,24 +33,20 @@ void Game::LoadGraphics()
 }
 void Game::StepGraphics()
 {
-	while (Window->isOpen())
-	{
-		WindowEvents();
-		StepGameplay();
-		Window->clear();
-		MainCamera->MoveCamera();
-		MainCamera->SetView(*Window);
-		MainCamera->ChangeState(); //Move out into a StepWorld function
-		MainCamera->StepCamera(GameGraphics, *Window, GameWorld);
-		GameGraphics.Render(*Window, Clock);
-		Window->display();
-	}
-	return;
+	Window->clear();
+	MainCamera->MoveCamera();
+	MainCamera->SetView(*Window);
+	GameGraphics.Render(*Window, Clock);
+	Window->display();
 }
 
 void Game::StepGameplay()
 {
 	if (Window->hasFocus()) {
+
+		MainCamera->ChangeState(); //Move out into a StepWorld function
+		MainCamera->StepCamera(GameGraphics, *Window, GameWorld);
+
 		sf::Vector2i MousePos = sf::Mouse::getPosition(*Window);
 		sf::Vector2f WorldPos = Window->mapPixelToCoords(MousePos);
 		if (MainCamera->CameraState == MainCamera->Build && sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
@@ -60,6 +61,7 @@ void Game::StepGameplay()
 			std::cout << "Resources " + std::to_string(GameData.Resources) << std::endl;
 			std::cout << "Power " + std::to_string(GameData.Power) << std::endl;
 		}
+		GameWorld.GameTick(GameData, Clock);
 	}
 }
 

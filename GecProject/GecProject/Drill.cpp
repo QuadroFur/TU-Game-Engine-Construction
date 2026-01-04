@@ -1,5 +1,6 @@
 #include "Drill.h"
 #include "AnimDataStruct.h"
+#include <iostream>
 
 Drill::Drill(Graphics& WorldGraphics, GameDataStruct& GameData)
 {
@@ -9,13 +10,15 @@ Drill::Drill(Graphics& WorldGraphics, GameDataStruct& GameData)
 }
 void Drill::StructureBuild(GameDataStruct& GameData)
 {
-	GameData.Resources += RecourceProduction;
+	std::cout << "" << std::endl;
+	//GameData.Resources += RecourceProduction;	//Broken due to infinite loop of cost and gain.
 }
-void Drill::StructureTick(GameDataStruct& GameData, sf::Clock Clock)
+void Drill::StructureTick(GameDataStruct& GameData, sf::Clock& Clock)
 {
 	sf::Time CurrentTime = Clock.getElapsedTime();
 	if (CurrentTime - TickStartTime >= TickRate)
 	{
+		TickStartTime = CurrentTime;
 		GameData.Resources += RecourceProduction;
 	}
 }

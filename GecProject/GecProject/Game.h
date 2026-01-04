@@ -24,6 +24,8 @@ private:
 	Camera* MainCamera{ nullptr };
 	std::optional<sf::Event> SFEvent;
 	sf::Clock Clock;
+	sf::Time TickStartTime{ sf::Time::Zero };
+	sf::Time TickTime{ sf::seconds(5) };
 
 	std::unordered_map<std::string, Unit*>UnitList;
 

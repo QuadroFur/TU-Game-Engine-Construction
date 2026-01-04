@@ -2,5 +2,5 @@
 
 Actor::~Actor()
 {
-	delete Sprite;
+	//delete Sprite;
 }

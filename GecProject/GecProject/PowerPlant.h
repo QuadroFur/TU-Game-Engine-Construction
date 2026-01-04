@@ -11,6 +11,6 @@ private:
 public:
     PowerPlant(Graphics& WorldGraphics, GameDataStruct& GameData);
     void StructureBuild(GameDataStruct& GameData) override;
-    void StructureTick(GameDataStruct& GameData, sf::Clock Clock) override;
+    void StructureTick(GameDataStruct& GameData, sf::Clock& Clock) override;
 };
 

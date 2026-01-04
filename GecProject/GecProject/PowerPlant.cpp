@@ -12,7 +12,7 @@ void PowerPlant::StructureBuild(GameDataStruct& GameData)
 {
 	GameData.Power += PowerProduction;
 }
-void PowerPlant::StructureTick(GameDataStruct& GameData, sf::Clock Clock)
+void PowerPlant::StructureTick(GameDataStruct& GameData, sf::Clock& Clock)
 {
 	//DoNothing
 }

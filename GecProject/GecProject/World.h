@@ -24,5 +24,5 @@ public:
 	sf::Vector2f GetGridPosition(sf::Vector2f Pos);
 	int GetGridSize() { return GridSize; }
 
-	void GameTick(GameDataStruct& GameData);
+	void GameTick(GameDataStruct& GameData, sf::Clock& GameClock);
 };

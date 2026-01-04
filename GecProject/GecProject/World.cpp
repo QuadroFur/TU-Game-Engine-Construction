@@ -59,11 +59,10 @@ sf::Vector2f World::GetGridPosition(sf::Vector2f Pos)
 	return sf::Vector2f(PosX, PosY);
 }
 
-void World::GameTick(GameDataStruct& GameData)
+void World::GameTick(GameDataStruct& GameData, sf::Clock& GameClock)
 {
 	for (auto& i : StructureList)
 	{
-		sf::Clock Clock;
-		i.second->StructureTick(GameData, Clock);
+		i.second->StructureTick(GameData, GameClock);
 	}
 }

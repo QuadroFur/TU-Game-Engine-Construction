@@ -16,4 +16,3 @@ public:
     void StructureBuild(GameDataStruct& GameData) override;
     void StructureTick(GameDataStruct& GameData, sf::Clock& Clock) override;
 };
-

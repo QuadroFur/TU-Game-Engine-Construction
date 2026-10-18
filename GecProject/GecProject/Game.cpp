@@ -51,15 +51,30 @@ void Game::StepGameplay()
 		sf::Vector2f WorldPos = Window->mapPixelToCoords(MousePos);
 		if (MainCamera->CameraState == MainCamera->Build && sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
 		{
-			Drill* NewStructure{ nullptr };
-			NewStructure = new Drill(GameGraphics, GameData);
-			bool out = GameWorld.PlaceStructure(GameGraphics, WorldPos, NewStructure, GameData);
-			if (!out)
+			if (SelectedStructure == 0)
 			{
-				std::cerr << "Structure did not place!" << std::endl;
+				Drill* NewStructure{ nullptr };
+				NewStructure = new Drill(GameGraphics, GameData);
+				bool out = GameWorld.PlaceStructure(GameGraphics, WorldPos, NewStructure, GameData);
+				if (!out)
+				{
+					std::cerr << "Structure did not place!" << std::endl;
+				}
+				std::cout << "Resources " + std::to_string(GameData.Resources) << std::endl;
+				std::cout << "Power " + std::to_string(GameData.Power) << std::endl;
 			}
-			std::cout << "Resources " + std::to_string(GameData.Resources) << std::endl;
-			std::cout << "Power " + std::to_string(GameData.Power) << std::endl;
+			else if (SelectedStructure == 1)
+			{
+				PowerPlant* NewStructure{ nullptr };
+				NewStructure = new PowerPlant(GameGraphics, GameData);
+				bool out = GameWorld.PlaceStructure(GameGraphics, WorldPos, NewStructure, GameData);
+				if (!out)
+				{
+					std::cerr << "Structure did not place!" << std::endl;
+				}
+				std::cout << "Resources " + std::to_string(GameData.Resources) << std::endl;
+				std::cout << "Power " + std::to_string(GameData.Power) << std::endl;
+			}
 		}
 		GameWorld.GameTick(GameData, Clock);
 	}
@@ -69,6 +84,5 @@ void Game::StepGameplay()
 Game::Game() {}
 Game::~Game()
 {
-	delete Player;
 	delete Window;
 }

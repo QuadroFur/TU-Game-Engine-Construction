@@ -3,7 +3,6 @@
 #include <unordered_map>
 #include "Graphics.h"
 #include "Camera.h"
-#include "Actor.h"
 #include "World.h"
 #include "Unit.h"
 #include "GameData.h"
@@ -32,11 +31,11 @@ private:
 	World GameWorld;
 
 	GameDataStruct GameData{500, 0};
+	int SelectedStructure = 1;
 
 	void LoadGraphics();
 	void StepGraphics();
 	void StepGameplay();
 	void WindowEvents();
 
-	Actor* Player{ nullptr };
 };
